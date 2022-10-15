@@ -40,7 +40,7 @@ const ShowPost  = (props: Props) =>{
 
     return (
         <>
-            <Grid  xs={2} sm={3} md={4}>
+            <Grid  xs={3} sm={3} md={4}>
               <Item>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia

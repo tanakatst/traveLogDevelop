@@ -1,8 +1,10 @@
 import React, { Component , useEffect, useRef, useState } from 'react'
-import geoJson from '../../data/geo.json'
-import * as d3 from 'd3';
-import { getPosts } from '../../api/PostApi';
-import { http } from '../../api/axios.csrf';
+import geoJson from '../../../data/geo.json'
+import * as d3 from 'd3'
+import { getPosts } from '../../../api/PostApi';
+import { http } from '../../../api/axios.csrf';
+import ProgressBar from './progressBar';
+
 const Map=()=>{
     const [postsPref, setPostPref] = useState([])
     const noDuplicatedPrefSet = new Set(postsPref);
@@ -42,10 +44,10 @@ const Map=()=>{
     const commitPersent = parseFloat((noDuplicatedPrefArr.length /47 *100).toFixed(digit))
 
     const drawmap = () =>{
-                const width = 400; // 描画サイズ: 幅
-                const height = 400; // 描画サイズ: 高さ
+                const width = 600; // 描画サイズ: 幅
+                const height = 300; // 描画サイズ: 高さ
                 const centerPos = [137.0, 38.2]; // 地図のセンター位置
-                const scale = 1000; // 地図のスケール
+                const scale = 800; // 地図のスケール
 
                 // 地図の投影設定
                 const projection = d3
@@ -85,7 +87,7 @@ const Map=()=>{
           .attr(`strokeWidth`, 0.25)
           .attr(`fill`, item =>{
               if(noDuplicatedPrefArr.includes(item.properties.name_ja)){
-                  return '#0000FF'
+                  return '#00897b'
               }else{
                   return '#fff'
               }
@@ -95,17 +97,15 @@ const Map=()=>{
         }
 
         return(
-            <div className="flex h-screen mt-40" >
-                    <div className="flex-none w-1/2">
-                        <div className="items-center div">
-                        </div>
+            <>
+                    <div className=" div">
                     </div>
-                    <div className="flex-1 w-1/2 h-auto py-4 mt-30">
+                    <div className="">
+                        <ProgressBar  persantage={commitPersent}/>
                         <p className="text-center">あなたの達成率は</p>
                         <h1 className='text-5xl font-bold text-center mt-11'>{commitPersent}％です</h1>
                     </div>
-
-                </div>
+            </>
         )
 
     }

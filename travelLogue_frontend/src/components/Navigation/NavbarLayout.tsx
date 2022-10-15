@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLogout } from '../../queries/AuthQuery';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -16,10 +17,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-
-
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import MapIcon from '@mui/icons-material/Map';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Link from 'next/link';
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -92,97 +94,147 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const NavbarLayout=()=> {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+    // ログアウト時のイベント
+    const logout = useLogout()
+
+    return (
+        <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+            <Toolbar>
+            <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                marginRight: 5,
+                ...(open && { display: 'none' }),
                 }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+            >
+                <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+                TraveLogue
+            </Typography>
+            </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+            <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
+                <ListItem  disablePadding sx={{ display: 'block' }}>
+                    <Link href='/home'>
+                        <ListItemButton
+                            sx={{
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                            px: 2.5,
+                            }}
+                        >
+                            <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                            }}
+                            >
+                            <InsertPhotoIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='旅ログ' sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+            </List>
+            <List>
+                <ListItem  disablePadding sx={{ display: 'block' }}>
+                <Link href='/mypage'>
+                    <ListItemButton
+                        sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 2.5,
+                        }}
+                    >
+                        <ListItemIcon
+                        sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                        }}
+                        >
+                            <MapIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='経験値マップ' sx={{ opacity: open ? 1 : 0 }} />
+                    </ListItemButton>
+                </Link>
+                </ListItem>
+            </List>
+            <List>
+                <ListItem  disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
+                    sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                    }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+                    <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                    >
+                    <AccountCircleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='プロフィール' sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+                </ListItem>
+            </List>
+            <Divider />
+            <List>
+                <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
+                    sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                    }}
+                    onClick={()=> {
+                        logout.mutate()}
+                    }
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
-  );
+                    <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                    >
+                        <LogoutIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='ログアウト' sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+                </ListItem>
+            </List>
+        </Drawer>
+        </Box>
+    );
 }
 export default NavbarLayout

@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { AuthProvider } from '../hooks/AuthContext'
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import {ThemeProvider} from '@mui/material/styles'
+import theme from '../styles/mui/theme'
+
+
 const queryClient = new QueryClient()
 
 
@@ -19,12 +23,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
       <>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-        {/* <ToastContainer hideProgressBar={true}/> */}
-        </QueryClientProvider>
-      </AuthProvider>
+        <ThemeProvider theme={theme}>
+            <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+            <ToastContainer hideProgressBar={true}/>
+            </QueryClientProvider>
+        </ThemeProvider>
       </>
   )
 }

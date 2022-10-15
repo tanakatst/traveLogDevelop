@@ -7,6 +7,9 @@ import { http } from "../src/api/axios.csrf";
 import ShowPost from "../src/components/pagesComponent/home/showPost";
 import { Box } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from "@mui/material/Container";
+import PostModal from "../src/components/pagesComponent/home/postModal";
+import { BorderAllRounded } from "@mui/icons-material";
 /**
  *
  * ログアウトボタンからリクエストが渡ると、queryにわたり、logout APIが実行されるように実装
@@ -39,21 +42,21 @@ const Home = ()=>{
 
     return(
         <>
-        <NavbarLayout />
-        <div className="items-center mx-32 mt-56 sm:mx-30">
-            <Box flexGrow={1}>
+        <NavbarLayout  />
+        <Container maxWidth='lg' sx={{mt:20, ml: 10, backgroundColor: 'primary.light', borderRadius:5}}>
+            <Box flexGrow={1} >
+                <PostModal />
                 <Grid container  spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                {posts.map(post =>
-                (
-                    <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} />
+                    {posts.map(post =>
+                    (
+                        <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} />
 
-                )
-                )}
-
+                    )
+                    )}
                 </Grid>
             </Box>
+        </Container>
 
-        </div>
         {/* <PostComponent  /> */}
 
         </>

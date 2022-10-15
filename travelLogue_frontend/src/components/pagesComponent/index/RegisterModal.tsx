@@ -7,7 +7,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ButtonAtom } from '../atoms/button';
+import { ButtonAtom } from '../../atoms/button';
+import { Box } from '@mui/material';
 
 type RegisterParams = {
     username: string
@@ -76,9 +77,9 @@ const RegisterModal= ()=> {
 
   return (
     <div>
-    <Button variant="contained" color='primary' onClick={handleClickOpen}>
+    <Button variant='contained' sx={{bgcolor: 'secondary.main'}}  color='secondary' onClick={handleClickOpen}>
         新規登録
-      </Button>
+    </ Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>アカウント新規登録</DialogTitle>
         <DialogContent>

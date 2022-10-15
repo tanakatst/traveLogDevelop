@@ -5,7 +5,8 @@ import style from '../styles/scss/moduleCss/index.module.scss'
 import axios from 'axios';
 import { NextPage } from 'next/types';
 import IndexNav from '../src/components/Navigation/IndexNavbar';
-import RegisterModal from '../src/components/uiComponents/RegisterModal';
+import RegisterModal from '../src/components/pagesComponent/index/RegisterModal';
+import Example from '../src/components/pagesComponent/index/example';
 const Home: NextPage = () => {
 
 
@@ -23,8 +24,8 @@ const Home: NextPage = () => {
                     </div>
                 </div>
             </div>
-
         </main>
+        <Example />
       </>
 
   )

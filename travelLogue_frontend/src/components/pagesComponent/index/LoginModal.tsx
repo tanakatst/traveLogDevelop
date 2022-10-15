@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import { useRouter } from 'next/router';
-import { useLogin } from '../../queries/AuthQuery';
+import { useLogin } from '../../../queries/AuthQuery';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -57,7 +57,7 @@ const LoginModal= ()=> {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen}>
+      <Button variant="contained" color='secondary'  onClick={handleClickOpen}>
         ログイン
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -69,7 +69,7 @@ const LoginModal= ()=> {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="email"
             label="Email Address"
             type="email"
             fullWidth
@@ -80,7 +80,7 @@ const LoginModal= ()=> {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="password"
             label="password"
             type="password"
             fullWidth
