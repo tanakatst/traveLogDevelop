@@ -47,11 +47,11 @@ const PostModal = ()=>{
             <IconButton
             size="large"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2 ,}}
             color='success'
             onClick={handleClickOpen}
           >
-                <AddCircleIcon fontSize="large" />
+                <AddCircleIcon sx={{fontSize: 80, backgroundColor: "#fff", borderRadius: 80}} />
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>投稿</DialogTitle>
@@ -75,7 +75,7 @@ const PostModal = ()=>{
                         <Select
                         fullWidth
                         {...register("prefecture")}
-                        label='都道府県い'
+                        label='都道府県'
                         >
                             <MenuItem value="北海道">北海道</MenuItem>
                             <MenuItem value="青森県">青森県</MenuItem>

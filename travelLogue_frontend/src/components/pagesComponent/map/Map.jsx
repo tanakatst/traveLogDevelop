@@ -1,9 +1,12 @@
 import React, { Component , useEffect, useRef, useState } from 'react'
 import geoJson from '../../../data/geo.json'
 import * as d3 from 'd3'
-import { getPosts } from '../../../api/PostApi';
 import { http } from '../../../api/axios.csrf';
 import ProgressBar from './progressBar';
+import { Grid } from '@mui/material';
+import { Box } from '@mui/system';
+import theme from '../../../../styles/mui/theme';
+
 
 const Map=()=>{
     const [postsPref, setPostPref] = useState([])
@@ -44,10 +47,10 @@ const Map=()=>{
     const commitPersent = parseFloat((noDuplicatedPrefArr.length /47 *100).toFixed(digit))
 
     const drawmap = () =>{
-                const width = 600; // 描画サイズ: 幅
-                const height = 300; // 描画サイズ: 高さ
+                const width = 800; // 描画サイズ: 幅
+                const height = 800; // 描画サイズ: 高さ
                 const centerPos = [137.0, 38.2]; // 地図のセンター位置
-                const scale = 800; // 地図のスケール
+                const scale = 1600; // 地図のスケール
 
                 // 地図の投影設定
                 const projection = d3
@@ -98,16 +101,23 @@ const Map=()=>{
 
         return(
             <>
-                    <div className=" div">
-                    </div>
-                    <div className="">
-                        <ProgressBar  persantage={commitPersent}/>
-                        <p className="text-center">あなたの達成率は</p>
-                        <h1 className='text-5xl font-bold text-center mt-11'>{commitPersent}％です</h1>
-                    </div>
+                <Box flexGrow={1}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={8} sx={{backgroundColor: 'primary.light', borderRadius:8, marginRight:12}}>
+                                <div className='div'>
+                                </div>
+                        </Grid>
+                        <Grid item xs={3}sx={{backgroundColor: 'primary.light', borderRadius:8, alignItems:'center'}}>
+                                <div style={{marginTop:150}}>
+                                    <ProgressBar className='mx-auto'  persantage={commitPersent}/>
+                                        <p className="text-center">あなたの達成率は</p>
+                                        <h1 className='text-5xl font-bold text-center mt-11'>{commitPersent}％です</h1>
+                                </div>
+                        </Grid>
+                    </Grid>
+                </Box>
             </>
         )
 
     }
-
-    export default Map;
+export default Map;
