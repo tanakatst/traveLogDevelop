@@ -9,12 +9,12 @@ class PostController extends Controller
 {
     //
 
-    public function getPost(Request $request){
+    public function index(Request $request){
        $posts = Post::where('user_id', \Auth::id())->get();
        return response()->json($posts);
     }
 
-    public function post(Request $request){
+    public function store(Request $request){
         $post = Post::create([
             "title"=> $request->title,
             "prefecture" => $request->prefecture,
@@ -23,9 +23,21 @@ class PostController extends Controller
         ]);
         return response()->json($post, 200);
     }
-
-    public function editPost(){
-        
+    public function update(Request $request, Post $post){
+        {
+            $post->title = $request->title;
+            $post->prefecture = $request->prefecture;
+            $post->content = $request->content;
+            return $post->update()
+                ?response()->json($post)
+                :response()->json([],500);
+        }
+    }
+    public function destroy(Post $post)
+    {
+        return $post->delete()
+            ? response()->json($post)
+            : response()->json([],500);
     }
 }
 
