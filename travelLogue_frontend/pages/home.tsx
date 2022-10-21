@@ -43,20 +43,22 @@ const Home = ()=>{
     return(
         <>
         <NavbarLayout  />
-        <Container maxWidth='lg' sx={{mt:20, ml: 10, backgroundColor: 'primary.light', borderRadius:5}}>
-            <Box flexGrow={1} >
-                <PostModal />
-                <Grid container  spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {posts.map(post =>
-                    (
-                        <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} />
+            <Container  sx={{mt:15, ml: '8%', width: '90%'}} className='static'>
+                <Box   sx={{backgroundColor: 'primary.light', mx: 'auto', borderRadius: 6, }}>
+                <h1 className="text-center pt-7 pb-7 " style={{fontFamily: 'DotGothic16' , fontSize:50, fontWeight:900}}>投稿一覧</h1>
+                <div style={{position:"fixed", bottom:3, right: 3}} >
+                    <PostModal />
+                </div>
+                    <Grid container  sx={{mx:'auto', width: '87%'}}  spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 9 }}>
+                        {posts.map(post =>
+                        (
+                            <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} />
 
-                    )
-                    )}
-                </Grid>
-            </Box>
-        </Container>
-
+                        )
+                        )}
+                    </Grid>
+                </Box>
+            </Container>
         {/* <PostComponent  /> */}
 
         </>

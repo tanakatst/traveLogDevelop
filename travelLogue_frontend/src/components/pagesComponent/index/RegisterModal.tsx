@@ -77,8 +77,10 @@ const RegisterModal= ()=> {
 
   return (
     <div>
-    <Button variant='contained' sx={{bgcolor: 'secondary.main'}}  color='secondary' onClick={handleClickOpen}>
-        新規登録
+    <Button variant='contained' sx={{backgroundColor: 'secodary.main'}}  onClick={handleClickOpen}>
+        <h1 className='text-bold'>
+            新規登録
+        </h1>
     </ Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>アカウント新規登録</DialogTitle>

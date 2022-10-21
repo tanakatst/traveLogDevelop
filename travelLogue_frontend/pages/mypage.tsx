@@ -8,7 +8,7 @@ const Mypage = ()=>{
     return(
         <>
                 <NavbarLayout />
-                <Container maxWidth="lg" sx={{mt:20}}>
+                <Container sx={{mt:15, ml: '8%', width: '90%'}} className='static'>
                     <Box margin='dense'>
                         <Map />
                     </Box>

@@ -9,6 +9,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { maxHeight } from "@mui/system";
+import { ImageListItem, ImageListItemBar } from '@mui/material';
+import { StayPrimaryLandscape } from "@mui/icons-material";
 type Props = {
     title: string
     prefecture: string
@@ -40,9 +43,8 @@ const ShowPost  = (props: Props) =>{
 
     return (
         <>
-            <Grid  xs={3} sm={3} md={4}>
-              <Item>
-              <Card sx={{ maxWidth: 345 }}>
+            <Grid  xs={2} sm={3} md={3} sx={{mx:'auto'}}>
+            <Card sx={{ maxWidth: 345 ,borderRadius:6}} >
                 <CardMedia
                     component="img"
                     height="140"
@@ -50,7 +52,7 @@ const ShowPost  = (props: Props) =>{
                     alt={prefecture}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div"  color="text.secondary" className="font-bold">
                     {title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -58,11 +60,11 @@ const ShowPost  = (props: Props) =>{
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    <Button  size="small">編集</Button>
+                    <Button size="small">削除</Button>
                 </CardActions>
                 </Card>
-              </Item>
+
             </Grid>
         </>
 
