@@ -1,12 +1,11 @@
 import React, { Component , useEffect, useRef, useState } from 'react'
 import geoJson from '../../../data/geo.json'
-import * as d3 from 'd3'
 import { http } from '../../../api/axios.csrf';
+import * as d3 from 'd3'
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import ProgressBar from './progressBar';
-import { Grid } from '@mui/material';
-import { Box } from '@mui/system';
-import theme from '../../../../styles/mui/theme';
-
 
 const Map=()=>{
     const [postsPref, setPostPref] = useState([])
@@ -47,10 +46,10 @@ const Map=()=>{
     const commitPersent = parseFloat((noDuplicatedPrefArr.length /47 *100).toFixed(digit))
 
     const drawmap = () =>{
-                const width = 800; // 描画サイズ: 幅
-                const height = 800; // 描画サイズ: 高さ
+                const width = 1000; // 描画サイズ: 幅
+                const height = 500; // 描画サイズ: 高さ
                 const centerPos = [137.0, 38.2]; // 地図のセンター位置
-                const scale = 1600; // 地図のスケール
+                const scale = 1500; // 地図のスケール
 
                 // 地図の投影設定
                 const projection = d3
@@ -101,37 +100,37 @@ const Map=()=>{
 
         return(
             <>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
-            <Grid item xs={6}>
-                <div className='div' style={{backgroundColor: '#e0f2f1' , borderRadius:40}}>
-                </div>
+            <Container  sx={{mt:10, ml: '8%', width: '95%'}} >
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                      p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 600,
+                    textAlign: 'center',
+                    position:'relative',
+                }}
+                >
+                <div className='div' style={{height:600}}></div>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                      p: 2,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      height: 240,
+                    }}
+                    >
+                    <ProgressBar persantage={commitPersent}/>
+                </Paper>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-                    <div style={{backgroundColor:'#e0f2f1', height:'100%', borderRadius:40, }}>
-                        <div style={{paddingTop:70}}>
-                            <ProgressBar className='mx-auto'  persantage={commitPersent}/>
-                        </div>
-                        <div style={{margin: 'auto'}}>
-                            <p style={{textAlign: 'center'}}>あなたの達成率は</p>
-                            <h1 style={{textAlign: 'center'}}>{commitPersent}％です</h1>
-                        </div>
-                    </div>
-            </Grid>
+          </Container>
 
-            </Grid>
-                    {/* <Grid container  columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{width:'100%'}}>
-                        <Grid item xs={6} sx={{backgroundColor: 'primary.light', borderRadius:8}}>
-                                <div className='div'>
-                                </div>
-                        </Grid>
-                        <Grid item xs={4}   sx={{backgroundColor: 'primary.light', borderRadius:8, alignItems:'center'}}>
-                                <div style={{marginTop:150}}>
-                                    <ProgressBar className='mx-auto'  persantage={commitPersent}/>
-                                        <p className="text-center">あなたの達成率は</p>
-                                        <h1 className='text-5xl font-bold text-center mt-11'>{commitPersent}％です</h1>
-                                </div>
-                        </Grid>
-                    </Grid> */}
             </>
         )
 

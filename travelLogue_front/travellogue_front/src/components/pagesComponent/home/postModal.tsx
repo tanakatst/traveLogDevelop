@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, InputLabel, Box, FormControl, MenuItem, Select, IconButton } from '@mui/material';
 import { usePost } from "../../../queries/PostQuery";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { title } from "process";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-
-
+import {Fab} from "@mui/material";
+import { Add } from "@mui/icons-material";
 type Inputs = {
     title: string,
     prefecture: string,
@@ -18,14 +18,16 @@ const PostModal = ()=>{
     const [open, setOpen] = React.useState(false);
 
     // posts
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data);
         const title = data.title
         const prefecture = data.prefecture
         const content = data.content
 
         post.mutate({title, prefecture, content})
+        uploadImg(file)
+
         setOpen(false)
     }
 
@@ -41,18 +43,37 @@ const PostModal = ()=>{
 
     const post = usePost();
 
+    // 画像投稿
+    const [file, setFile] = useState<File | undefined>();
+    const handleChangeFile = (e: any) => {
+      setFile(e.target.files[0]);
+    };
+
+
+    const uploadImg = useCallback(async (file:File | undefined) => {
+        const fileName = `${title}Image`
+        const res = await fetch(`../../../src/api/uploadImage?file=${fileName}`);
+        const { url, fields } = await res.json();
+        const body = new FormData();
+        Object.entries({ ...fields, file }).forEach(([key, value]) => {
+          body.append(key, value as string | Blob );
+        });
+        const upload = await fetch(url, {method:"POST", body});
+
+        if (upload.ok) {
+          console.log('Uploaded successfully!');
+        } else {
+          console.error('Upload failed.');
+        }
+      },[])
 
     return (
         <div>
-            <IconButton
-            size="large"
-            aria-label="menu"
-            sx={{ mr: 2 ,}}
-            color='success'
-            onClick={handleClickOpen}
-          >
-                <AddCircleIcon sx={{fontSize: 80, backgroundColor: "none", borderRadius: 80}} />
-            </IconButton>
+             <Fab color="primary" aria-label="add" sx={{mr:2, mb:2 ,":hover":{backgroundColor:'#9ab7c9'}}}
+                onClick={handleClickOpen}
+                >
+                <Add />
+            </Fab>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>投稿</DialogTitle>
                 <DialogContent>
@@ -137,6 +158,10 @@ const PostModal = ()=>{
                     fullWidth
                     {...register('content')}
                 />
+                <Button variant="contained" component="label">
+                    Upload
+                    <input hidden accept="image/*" multiple type="file" onChange={handleChangeFile}/>
+                </Button>
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handleClose}>キャンセル</Button>

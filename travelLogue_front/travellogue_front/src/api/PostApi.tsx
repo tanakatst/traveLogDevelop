@@ -13,18 +13,14 @@ type Post = {
 }
 
 const getPosts = async () =>{
-    await http.get('/sanctum/csrf-cookie')
-    .then(async response =>{
-        console.log(response);
-        const {data} = await http.get<Post[]>('api/posts')
+        const {data} = await (await http.get<Post[]>('api/posts'))
         return data;
-    })
 }
 
 const Post = async ({title,prefecture,content}:{title:string,prefecture:string,content:string}) => {
     await http.get('/sanctum/csrf-cookie')
     .then(async response=>{
-        const data =await http.post('/api/posts',
+        const data = await http.post('/api/posts',
         {title,prefecture,content}
         )
         console.log(data);
@@ -59,3 +55,7 @@ export {
     updatePost,
     deletePost
 }
+export function getUser(): any {
+    throw new Error('Function not implemented.');
+}
+

@@ -7,6 +7,7 @@ import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import {ThemeProvider} from '@mui/material/styles'
 import theme from '../src/styles/mui/theme';
+import { useEffect } from 'react';
 const queryClient = new QueryClient()
 
 
@@ -16,8 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     // const {isAuth , setIsAuth}  = useAuth()
     // const router = useRouter()
     // isAuth?
-
-
 
   return (
       <>

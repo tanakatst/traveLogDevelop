@@ -48,4 +48,14 @@ class LoginController extends Controller
         Auth::login($user);
         return response()->json($user, 200);
     }
+    public function edit(Request $request, User $user){
+        {
+            $user->name = $request->username;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            return $user->update()
+                ?response()->json($user)
+                :response()->json([],500);
+        }
+    }
 }

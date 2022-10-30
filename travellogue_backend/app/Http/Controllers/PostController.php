@@ -21,10 +21,12 @@ class PostController extends Controller
             "content"=> $request->content,
             "user_id"=> \Auth::id()
         ]);
-        return response()->json($post, 200);
+        $image = $request->file;
+        return response()->json([$post,$image], 200);
     }
     public function update(Request $request, Post $post){
         {
+            echo($request);
             $post->title = $request->title;
             $post->prefecture = $request->prefecture;
             $post->content = $request->content;

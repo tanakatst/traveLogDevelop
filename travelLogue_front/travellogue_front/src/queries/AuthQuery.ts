@@ -6,7 +6,7 @@ import { useAuth } from '../../hooks/AuthContext';
 
 
 const useUser = ()=>{
-    return useQuery('user', ()=>api.getUser)
+    return useQuery('user', ()=>api.getUser())
 }
 const useLogin =()=>{
     const router = useRouter();

@@ -22,8 +22,13 @@ import MapIcon from '@mui/icons-material/Map';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
-const drawerWidth = 240;
 
+
+type LayoutProps = Required<{
+    readonly children: React.ReactElement
+  }>
+
+const drawerWidth = 240;
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -121,6 +126,7 @@ const NavbarLayout=()=> {
                 sx={{
                 marginRight: 5,
                 ...(open && { display: 'none' }),
+                display:{xs:'none',sm:'block '}
                 }}
             >
                 <MenuIcon />
@@ -130,22 +136,48 @@ const NavbarLayout=()=> {
             </Typography>
             </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-            <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-            </DrawerHeader>
-            <Divider />
-            <List>
-                <ListItem  disablePadding sx={{ display: 'block' }}>
-                    <Link href='/home'>
+
+        <Drawer variant="permanent"  open={open} sx={{display:{xs:'none',sm:'block'}}} >
+            <Box>
+                <DrawerHeader >
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    </IconButton>
+                </DrawerHeader>
+                <Divider />
+                <List>
+                    <ListItem  disablePadding sx={{ display: 'block',borderRadius:2,":hover":{backgroundColor:'#5cd1ef',color:'#fff'} }}>
+                        <Link href='/home'>
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 48,
+                                    justifyContent: open ? 'initial' : 'center',
+                                    px: 2.5,
+                                }}
+                                >
+                                <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                                >
+                                <InsertPhotoIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='旅ログ' sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </Link>
+                    </ListItem>
+                </List>
+                <List>
+                    <ListItem  disablePadding sx={{ display: 'block', borderRadius:2,":hover":{backgroundColor:'#5cd1ef',color:'#fff'} }} >
+                    <Link href='/mapPage'>
                         <ListItemButton
                             sx={{
                             minHeight: 48,
                             justifyContent: open ? 'initial' : 'center',
                             px: 2.5,
-                            }}
+                        }}
                         >
                             <ListItemIcon
                             sx={{
@@ -154,23 +186,50 @@ const NavbarLayout=()=> {
                                 justifyContent: 'center',
                             }}
                             >
-                            <InsertPhotoIcon />
+                                <MapIcon />
                             </ListItemIcon>
-                            <ListItemText primary='旅ログ' sx={{ opacity: open ? 1 : 0 }} />
+                            <ListItemText primary='経験値マップ' sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </Link>
-                </ListItem>
-            </List>
-            <List>
-                <ListItem  disablePadding sx={{ display: 'block' }}>
-                <Link href='/mapPage'>
+                    </ListItem>
+                </List>
+                <List>
+                    <ListItem  disablePadding sx={{ display: 'block',borderRadius:2,":hover":{backgroundColor:'#5cd1ef',color:'#fff'} }}>
+                    <Link href='/profile'>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                            }}
+                            >
+                            <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                            }}
+                            >
+                            <AccountCircleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='プロフィール' sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </Link>
+                    </ListItem>
+                </List>
+                <Divider />
+                <List>
+                    <ListItem disablePadding sx={{ display: 'block' }}>
                     <ListItemButton
                         sx={{
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                        px: 2.5,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                            px: 2.5,
                         }}
-                    >
+                        onClick={()=> {
+                            logout.mutate()}
+                        }
+                        >
                         <ListItemIcon
                         sx={{
                             minWidth: 0,
@@ -178,62 +237,17 @@ const NavbarLayout=()=> {
                             justifyContent: 'center',
                         }}
                         >
-                            <MapIcon />
+                            <LogoutIcon />
                         </ListItemIcon>
-                        <ListItemText primary='経験値マップ' sx={{ opacity: open ? 1 : 0 }} />
+                        <ListItemText primary='ログアウト' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
-                </Link>
-                </ListItem>
-            </List>
-            <List>
-                <ListItem  disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                    sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                    }}
-                >
-                    <ListItemIcon
-                    sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                    }}
-                    >
-                    <AccountCircleIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='プロフィール' sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                    sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                    }}
-                    onClick={()=> {
-                        logout.mutate()}
-                    }
-                >
-                    <ListItemIcon
-                    sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                    }}
-                    >
-                        <LogoutIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='ログアウト' sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-                </ListItem>
-            </List>
+                    </ListItem>
+                </List>
+            </Box>
         </Drawer>
+        {/* <Box>
+            {children}
+        </Box> */}
         </Box>
     );
 }

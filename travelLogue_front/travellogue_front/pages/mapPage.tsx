@@ -1,21 +1,31 @@
-import React from "react";
-import NavbarLayout from "../src/components/Navigation/NavbarLayout";
-import Map from '../src/components/pagesComponent/map/Map';
-import { Box } from "@mui/system";
+import React,{useState} from 'react';
+import { createTheme } from '@mui/material/styles';
+import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-const Mypage = ()=>{
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import NavbarLayout from '../src/components/Navigation/NavbarLayout';
+import Map from '../src/components/pagesComponent/map/Map';
 
-    return(
-        <>
 
-                <NavbarLayout />
-                <Container sx={{mt:15, ml: '8%', width: '90%'}} className='static'>
-                    <Box margin='dense'>
-                        <Map />
-                    </Box>
-                </Container>
 
-        </>
-    )
+const mdTheme = createTheme();
+
+const mapPage = () => {
+  const [open, setOpen] = useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  return (
+  <>
+
+      <NavbarLayout />
+      <Map />
+    </>
+  );
 }
-export default Mypage;
+
+export default mapPage;
