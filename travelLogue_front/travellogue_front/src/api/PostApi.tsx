@@ -13,17 +13,19 @@ type Post = {
 }
 
 const getPosts = async () =>{
-        const {data} = await (await http.get<Post[]>('api/posts'))
+        const {data} = (await http.get<Post[]>('api/posts'))
+        console.log(data);
         return data;
 }
 
-const Post = async ({title,prefecture,content}:{title:string,prefecture:string,content:string}) => {
+const Post = async (formData:FormData) => {
     await http.get('/sanctum/csrf-cookie')
     .then(async response=>{
         const data = await http.post('/api/posts',
-        {title,prefecture,content}
+        formData,
+        {headers:{ "content-type": "multipart/form-data"}}
         )
-        console.log(data);
+        console.log(data)
     })
 }
 

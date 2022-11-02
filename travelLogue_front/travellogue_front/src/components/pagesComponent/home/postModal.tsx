@@ -3,9 +3,10 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextFiel
 import { usePost } from "../../../queries/PostQuery";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { title } from "process";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {Fab} from "@mui/material";
 import { Add } from "@mui/icons-material";
+import PhotosUpload from './ImagePost';
+import imageCompression from "browser-image-compression";
 type Inputs = {
     title: string,
     prefecture: string,
@@ -13,25 +14,40 @@ type Inputs = {
 }
 
 
-
 const PostModal = ()=>{
     const [open, setOpen] = React.useState(false);
 
     // posts
+    // formData形式にする処理
+    const [photos, setPhotos] = useState<File[]>([])
     const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const title = data.title
-        const prefecture = data.prefecture
-        const content = data.content
+    const onSubmit: SubmitHandler<Inputs> =async(data):Promise<void> => {
+        const {title,prefecture,content} = data
+        const formData = new FormData()
+        formData.append('title', title)
+        formData.append('prefecture',prefecture)
+        formData.append('content', content)
 
-        post.mutate({title, prefecture, content})
-        uploadImg(file)
-
+        const compressOptions = {
+            // 3MB以下に圧縮する
+            maxSizeMB: 3,
+          };
+          const compressedPhotoData = await Promise.all(
+            photos.map(async (photo) => {
+              return {
+                blob: await imageCompression(photo, compressOptions),
+                name: photo.name,
+              };
+            })
+          );
+        compressedPhotoData.forEach((photoData) => {
+        formData.append("photo", photoData.blob, photoData.name);
+        });
+        post.mutate(formData)
         setOpen(false)
     }
-
-
+    //  　モーダルの処理
     const handleClickOpen  = () =>{
         setOpen(true)
     }
@@ -43,29 +59,24 @@ const PostModal = ()=>{
 
     const post = usePost();
 
-    // 画像投稿
-    const [file, setFile] = useState<File | undefined>();
-    const handleChangeFile = (e: any) => {
-      setFile(e.target.files[0]);
-    };
 
 
-    const uploadImg = useCallback(async (file:File | undefined) => {
-        const fileName = `${title}Image`
-        const res = await fetch(`../../../src/api/uploadImage?file=${fileName}`);
-        const { url, fields } = await res.json();
-        const body = new FormData();
-        Object.entries({ ...fields, file }).forEach(([key, value]) => {
-          body.append(key, value as string | Blob );
-        });
-        const upload = await fetch(url, {method:"POST", body});
+    // const uploadImg = useCallback(async (file:File | undefined) => {
+    //     const fileName = `${title}Image`
+    //     const res = await fetch(`../../../src/api/uploadImage?file=${fileName}`);
+    //     const { url, fields } = await res.json();
+    //     const body = new FormData();
+    //     Object.entries({ ...fields, file }).forEach(([key, value]) => {
+    //       body.append(key, value as string | Blob );
+    //     });
+    //     const upload = await fetch(url, {method:"POST", body});
 
-        if (upload.ok) {
-          console.log('Uploaded successfully!');
-        } else {
-          console.error('Upload failed.');
-        }
-      },[])
+    //     if (upload.ok) {
+    //       console.log('Uploaded successfully!');
+    //     } else {
+    //       console.error('Upload failed.');
+    //     }
+    //   },[])
 
     return (
         <div>
@@ -91,7 +102,6 @@ const PostModal = ()=>{
                     {...register('title')}
                 />
                     <FormControl fullWidth margin="dense">
-
                         <InputLabel>都道府県</InputLabel>
                         <Select
                         fullWidth
@@ -147,7 +157,6 @@ const PostModal = ()=>{
                             <MenuItem value="沖縄県">沖縄県</MenuItem>
                         </Select>
                     </FormControl>
-
                 <TextField
                     multiline
                     rows={4}
@@ -158,10 +167,7 @@ const PostModal = ()=>{
                     fullWidth
                     {...register('content')}
                 />
-                <Button variant="contained" component="label">
-                    Upload
-                    <input hidden accept="image/*" multiple type="file" onChange={handleChangeFile}/>
-                </Button>
+                <PhotosUpload name="photos" photos={photos} setPhotos={setPhotos}/>
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handleClose}>キャンセル</Button>

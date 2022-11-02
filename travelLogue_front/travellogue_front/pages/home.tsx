@@ -14,12 +14,21 @@ import RightBar from "../src/components/pagesComponent/home/RightBar";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import BottomNav from "../src/components/atoms/BotttomNav";
 /**
  *
  * ログアウトボタンからリクエストが渡ると、queryにわたり、logout APIが実行されるように実装
  * ログアウトの
  * →navbar components の呼び出しをする（それぞれの要素は変更できるように・）
  */
+interface image{
+    created_at:Date,
+    id:number,
+    name:string,
+    path:string,
+    post_id:number,
+    updated_at:Date
+}
 type Post = {
     id: number
     title: string
@@ -28,9 +37,10 @@ type Post = {
     content: string
     created_at: Date
     updated_at:Date
+    images:image[]
 }
 const Home = ()=>{
-
+    const [renderFlg, setRenderFlg] = useState<boolean>(true);
     // Hooks(Query)を使用するとloadingになるため直接記述
     const [posts, setPosts] =useState<Post[]>([])
     const getPosts =  ()=>{
@@ -38,6 +48,7 @@ const Home = ()=>{
         .then(async response=>{
             const{ data } = await  http.get<Post[]>('/api/posts')
             setPosts(data.reverse());
+            console.log(data)
         })
     }
     const [username, setUsername] = useState<string>()
@@ -45,6 +56,8 @@ const Home = ()=>{
     const getUserName = ()=>{
         setUsername(data)
     }
+
+
 
     // 投稿がされたらレンダリングする
     useEffect(()=>{
@@ -59,13 +72,14 @@ const Home = ()=>{
             <Container  sx={{mt:10, ml: '8%', width: '95%'}} className='static'>
             <MainFeature />
                     <Box flexGrow={1}>
+        {/* <img src="http://localhost:8888/storage/images/kyoto.jpeg" alt=""  style={{width:100,height:500}}/> */}
                         <Grid container spacing={3} justifyContent='space-between'>
                                 <Grid xs={12} md={7} >
                                     <Box pt={5} width='95%' margin='auto'>
 
                                         <Card sx={{borderRadius:6}}>
-                                            <h1  style={{textAlign:'center',fontSize:25, fontWeight:700 ,paddingTop:10, paddingBottom:8}}>{username} さんのログ</h1>
-
+                                            <h1  style={{textAlign:'center',fontSize:25, fontWeight:700 ,paddingTop:10, paddingBottom:8}}>{username} さん</h1>
+                                            <BottomNav />
                                             {/* button navigation 予定 */}
                                         </Card>
                                     </Box>
@@ -76,7 +90,7 @@ const Home = ()=>{
                                             {posts.map((post,index) =>
                                             (
 
-                                                <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} id={post.id} time= {post.created_at} key= {index} />
+                                                <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} id={post.id} time= {post.created_at} image={post.images} key= {index}  />
 
                                             )
                                             )}

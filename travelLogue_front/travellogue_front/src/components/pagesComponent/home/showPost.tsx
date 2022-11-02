@@ -19,12 +19,22 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Menu, MenuItem } from "@mui/material";
 import EditModal from './updatePostModal';
 import DeleteModal from './DeleteModal';
+
+interface image{
+    created_at:Date,
+    id:number,
+    name:string,
+    path:string,
+    post_id:number,
+    updated_at:Date
+}
 type Props = {
     id:number
     title: string
     prefecture: string
     content: string
     time: Date
+    image:image[]
 }
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -49,7 +59,7 @@ const ShowPost  = (props:Props) =>{
     const content = props.content
     const id = props.id
     const time = props.time.toString()
-
+    const image = props.image[0].path
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -111,7 +121,7 @@ const ShowPost  = (props:Props) =>{
             <CardMedia
                 component="img"
                 height="500"
-                image="https://cdn.pixabay.com/photo/2022/10/16/13/53/early-morning-7525151_1280.jpg"
+                image={image}
                 alt="Paella dish"
             />
             <CardContent>

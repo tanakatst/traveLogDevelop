@@ -72,16 +72,17 @@ const RegisterModal= ()=> {
         else{
             console.log('新規登録に失敗しました')
         }
+        setOpen(false);
     }
 
 
-  return (
+    return (
       <>
       <div style={{margin:'auto',textAlign:'center', alignItems:'center' }}>
 
         <Button variant='contained' sx={{ mx:'auto', my:'auto'}}  onClick={handleClickOpen}>
                 新規登録
-        </ Button>
+        </Button>
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>アカウント新規登録</DialogTitle>
             <DialogContent>
@@ -98,7 +99,7 @@ const RegisterModal= ()=> {
                 variant="standard"
                 value={username}
                 onChange={changeUserName}
-                />
+            />
             <TextField
                 autoFocus
                 margin="dense"
@@ -109,7 +110,7 @@ const RegisterModal= ()=> {
                 variant="standard"
                 value={email}
                 onChange={changeEmail}
-                />
+            />
             <TextField
                 autoFocus
                 margin="dense"
@@ -131,14 +132,14 @@ const RegisterModal= ()=> {
                 variant="standard"
                 value={confirmPass}
                 onChange={changeConfirmPass}
-                />
+            />
             </DialogContent>
             <DialogActions>
-            <Button onClick={handleClose}>キャンセル</Button>
-            <Button onClick={handleRegister}>登録</Button>
+                <Button onClick={handleClose}>キャンセル</Button>
+                <Button onClick={handleRegister}>登録</Button>
             </DialogActions>
         </Dialog>
-      </div>
+    </div>
 
     </>
   );
