@@ -1,27 +1,27 @@
-import * as React from 'react';
+import React, {Dispatch,SetStateAction, FC} from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useEffect } from 'react';
 
-export default function BottomNav() {
-  const [value, setValue] = React.useState(0);
+const  BottomNav: FC<{setBottomState:Dispatch<SetStateAction<number>>}>=({setBottomState})=> {
 
   return (
-    <Box sx={{ width: 500, textAlign:'center' ,margin:'auto'}}>
+    <Box sx={{ width: 500, textAlign:'center' ,margin:'auto'}} bgcolor='#3a9bb3' display='block'>
       <BottomNavigation
         showLabels
-        value={value}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          setBottomState(newValue);
         }}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction  value={0} label="自分の投稿" icon={<RestoreIcon />} />
+        <BottomNavigationAction  value={1} label="みんなの投稿" icon={<FavoriteIcon />} />
+        <BottomNavigationAction  value={2} label="dfafsa" icon={<LocationOnIcon />} />
       </BottomNavigation>
     </Box>
   );
 }
+export default BottomNav;

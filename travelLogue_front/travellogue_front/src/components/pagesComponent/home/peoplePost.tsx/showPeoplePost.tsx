@@ -17,8 +17,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Menu, MenuItem } from "@mui/material";
-import EditModal from './updatePostModal';
-import DeleteModal from './DeleteModal';
+import EditModal from '../updatePostModal';
+import DeleteModal from '../DeleteModal';
 
 interface image{
     created_at:Date,
@@ -52,7 +52,7 @@ interface ExpandMoreProps extends IconButtonProps {
   }));
 
 
-const ShowPost  = (props:Props) =>{
+const ShowPeoplePost  = (props:Props) =>{
 
     const title = props.title
     const prefecture = props.prefecture
@@ -151,5 +151,5 @@ const ShowPost  = (props:Props) =>{
       </>
   );
 }
-export default ShowPost
+export default ShowPeoplePost
 

@@ -7,8 +7,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ButtonAtom } from '../../atoms/button';
-import { Box } from '@mui/material';
+import { useForm, SubmitHandler,  Controller } from 'react-hook-form';
+import { Value } from 'sass';
+
 
 type RegisterParams = {
     username: string
@@ -20,6 +21,24 @@ type SubmitParams = {
     username: string
     email:string
     password:string
+}
+
+const validationRules ={
+    username:{
+        required: '名前を入力してください',
+        minLength:{value: 2, message:'名前は2文字以上、15文字以内で入力してください' },
+        maxLength:{value:40 , message:'名前は2文字以上、40文字以内で入力してください'}
+    },
+    email:{
+        required: 'メールアドレスを入力してください。',
+
+    },
+    password:{
+
+    },
+    confirmPass:{
+
+    }
 }
 
 const RegisterModal= ()=> {
@@ -36,45 +55,60 @@ const RegisterModal= ()=> {
   };
 //
 // 新規登録機能
-    const [username, setUserName] = useState('')
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPass, setConfirmPass] = useState('');
+  const {control, handleSubmit} = useForm(
+      {
+          defaultValues:{
+            username: '',
+            email:'',
+            password:'',
+            confirmPass:''
+          }
+      }
+  )
+  const onSubmit:SubmitHandler<RegisterParams> = (data)=>{
+      console.log(data);
+
+  }
+
+    // const [username, setUserName] = useState('')
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    // const [confirmPass, setConfirmPass] = useState('');
 
 
-    const changeUserName = (e:ChangeEvent<HTMLInputElement>)=>{
-        setUserName(e.target.value);
-    }
 
-    const changeEmail = (e:ChangeEvent<HTMLInputElement>) =>{
-        setEmail(e.target.value)
-    }
+    // const changeUserName = (e:ChangeEvent<HTMLInputElement>)=>{
+    //     setUserName(e.target.value);
+    // }
 
-    const changePassword = (e:ChangeEvent<HTMLInputElement>) =>{
-        setPassword(e.target.value)
-    }
+    // const changeEmail = (e:ChangeEvent<HTMLInputElement>) =>{
+    //     setEmail(e.target.value)
+    // }
 
-    const changeConfirmPass = (e:ChangeEvent<HTMLInputElement>) =>{
-        setConfirmPass(e.target.value)
-    }
+    // const changePassword = (e:ChangeEvent<HTMLInputElement>) =>{
+    //     setPassword(e.target.value)
+    // }
+
+    // const changeConfirmPass = (e:ChangeEvent<HTMLInputElement>) =>{
+    //     setConfirmPass(e.target.value)
+    // }
     // 登録ボタンを押した時の反応
-    const handleRegister = ()=>{
-        const registerParams: RegisterParams = {username, email, password, confirmPass}
-        const submitParams: SubmitParams = {username, email, password}
-        axios.get('http://localhost:8888/sanctum/csrf-cookie', {withCredentials: true})
-        if(password === confirmPass && password.length > 6 ){
-            axios.post('http://localhost:8888/api/register',submitParams , {withCredentials: true})
-            .then((response)=>{
-                console.log(response)
-                console.log('新規登録に成功しました')
-            })
-        }
-        else{
-            console.log('新規登録に失敗しました')
-        }
-        setOpen(false);
-    }
-
+    // const handleRegister = ()=>{
+    //     const registerParams: RegisterParams = {username, email, password, confirmPass}
+    //     const submitParams: SubmitParams = {username, email, password}
+    //     axios.get('http://localhost:8888/sanctum/csrf-cookie', {withCredentials: true})
+    //     if(password === confirmPass && password.length > 6 ){
+    //         axios.post('http://localhost:8888/api/register',submitParams , {withCredentials: true})
+    //         .then((response)=>{
+    //             console.log(response)
+    //             console.log('新規登録に成功しました')
+    //         })
+    //     }
+    //     else{
+    //         console.log('新規登録に失敗しました')
+    //     }
+    //     setOpen(false);
+    // }
 
     return (
       <>
@@ -89,28 +123,49 @@ const RegisterModal= ()=> {
             <DialogContentText>
                 メールアドレスとパスワードを入力してください
             </DialogContentText>
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="ユーザー名"
-                type="username"
-                fullWidth
-                variant="standard"
-                value={username}
-                onChange={changeUserName}
+            <Controller
+                name='username'
+                control={control}
+                rules={validationRules.username}
+                render={({field, fieldState})=> (
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="ユーザー名"
+                    type="username"
+                    fullWidth
+                    variant="standard"
+                    {...field}
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+               // {required: })
+                />
+                )}
             />
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="メールアドレス"
-                type="email"
-                fullWidth
-                variant="standard"
-                value={email}
-                onChange={changeEmail}
+            <Controller
+                name='email'
+                control={control}
+                rules={validationRules.email}
+                render={({field, fieldState})=>(
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="メールアドレス"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    {...field}
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+                    // {...register('email')}
+                />
+
+                )}
             />
+
+
             <TextField
                 autoFocus
                 margin="dense"
@@ -119,8 +174,7 @@ const RegisterModal= ()=> {
                 type="password"
                 fullWidth
                 variant="standard"
-                value={password}
-                onChange={changePassword}
+                // {...register('password')}
             />
             <TextField
                 autoFocus
@@ -130,13 +184,12 @@ const RegisterModal= ()=> {
                 type="password"
                 fullWidth
                 variant="standard"
-                value={confirmPass}
-                onChange={changeConfirmPass}
+                // {...register('confirmPass')}
             />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>キャンセル</Button>
-                <Button onClick={handleRegister}>登録</Button>
+                <Button onClick={handleSubmit(onSubmit)}>登録</Button>
             </DialogActions>
         </Dialog>
     </div>

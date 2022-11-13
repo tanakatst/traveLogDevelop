@@ -14,7 +14,7 @@ type Post = {
 
 const getPosts = async () =>{
         const {data} = (await http.get<Post[]>('api/posts'))
-        console.log(data);
+        // console.log(data);
         return data;
 }
 

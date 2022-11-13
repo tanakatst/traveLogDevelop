@@ -194,6 +194,30 @@ const NavbarLayout=()=> {
                     </ListItem>
                 </List>
                 <List>
+                    <ListItem  disablePadding sx={{ display: 'block', borderRadius:2,":hover":{backgroundColor:'#5cd1ef',color:'#fff'} }} >
+                    <Link href='/travelPlan'>
+                        <ListItemButton
+                            sx={{
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                            px: 2.5,
+                        }}
+                        >
+                            <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                            }}
+                            >
+                                <MapIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='旅行計画リスト' sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </Link>
+                    </ListItem>
+                </List>
+                <List>
                     <ListItem  disablePadding sx={{ display: 'block',borderRadius:2,":hover":{backgroundColor:'#5cd1ef',color:'#fff'} }}>
                     <Link href='/profile'>
                         <ListItemButton

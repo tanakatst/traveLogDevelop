@@ -87,6 +87,7 @@ const PhotosUpload: React.FC<PhotosUploadProps> = ({
               onClick={() => handleCancel(index)}
             >
               <img
+              style={{width:'50%'}}
                 src={URL.createObjectURL(photos[index])}
                 alt={`あなたの写真 ${index + 1}`}
               />

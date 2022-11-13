@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from "react";
 // import {useLogout}
 import { http } from "../src/api/axios.csrf";
-import ShowPost from "../src/components/pagesComponent/home/showPost";
+import ShowPost from "../src/components/pagesComponent/home/myPost/showPost";
 import { Box, Card, Divider, Stack} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from "@mui/material/Container";
@@ -15,6 +15,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import BottomNav from "../src/components/atoms/BotttomNav";
+import ShowPeoplePost from '../src/components/pagesComponent/home/peoplePost.tsx/showPeoplePost';
 /**
  *
  * ログアウトボタンからリクエストが渡ると、queryにわたり、logout APIが実行されるように実装
@@ -40,6 +41,7 @@ type Post = {
     images:image[]
 }
 const Home = ()=>{
+
     const [renderFlg, setRenderFlg] = useState<boolean>(true);
     // Hooks(Query)を使用するとloadingになるため直接記述
     const [posts, setPosts] =useState<Post[]>([])
@@ -57,7 +59,8 @@ const Home = ()=>{
         setUsername(data)
     }
 
-
+    // bottom navigation によるstate管理
+    const [bottomState, setBottomState] = useState(0)
 
     // 投稿がされたらレンダリングする
     useEffect(()=>{
@@ -78,14 +81,20 @@ const Home = ()=>{
                                     <Box pt={5} width='95%' margin='auto'>
 
                                         <Card sx={{borderRadius:6}}>
-                                            <h1  style={{textAlign:'center',fontSize:25, fontWeight:700 ,paddingTop:10, paddingBottom:8}}>{username} さん</h1>
-                                            <BottomNav />
+                                            {bottomState==0?
+                                             <h1  style={{textAlign:'center',fontSize:25, fontWeight:700 ,paddingTop:10, paddingBottom:8}}>{username} さんのログ</h1>
+                                            :
+                                            <h1  style={{textAlign:'center',fontSize:25, fontWeight:700 ,paddingTop:10, paddingBottom:8}}>みんなのログ</h1>
+                                            }
+                                             <BottomNav setBottomState = {setBottomState} />
                                             {/* button navigation 予定 */}
                                         </Card>
                                     </Box>
                                     <div style={{position:"fixed", bottom:3, right: 3}} >
                                         <PostModal />
                                     </div>
+                                    {bottomState==0?
+
                                         <Grid container  sx={{mx:'auto' }}  spacing={2} >
                                             {posts.map((post,index) =>
                                             (
@@ -95,14 +104,25 @@ const Home = ()=>{
                                             )
                                             )}
                                         </Grid>
+                                    :
+                                    <Grid container  sx={{mx:'auto' }}  spacing={2} >
+                                    {posts.map((post,index) =>
+                                    (
+
+                                        <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} id={post.id} time= {post.created_at} image={post.images} key= {index}  />
+
+                                    )
+                                    )}
+                                    </Grid>}
                                 </Grid>
                                 <Divider orientation="vertical" flexItem>
                                 </Divider>
                                 <Grid md={4}>
-                                    {username?
-                                        <RightBar username={username}/>
-                                        : null
-                                    }
+                                {username?
+                                    <RightBar username={username} />
+                                :
+                                null}
+
                                 </Grid>
                         </Grid>
                     </Box>

@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { title } from "process";
 import {Fab} from "@mui/material";
 import { Add } from "@mui/icons-material";
-import PhotosUpload from './ImagePost';
+import PhotosUpload from './myPost/ImagePost';
 import imageCompression from "browser-image-compression";
 type Inputs = {
     title: string,
@@ -58,26 +58,6 @@ const PostModal = ()=>{
     // 都道府県select
 
     const post = usePost();
-
-
-
-    // const uploadImg = useCallback(async (file:File | undefined) => {
-    //     const fileName = `${title}Image`
-    //     const res = await fetch(`../../../src/api/uploadImage?file=${fileName}`);
-    //     const { url, fields } = await res.json();
-    //     const body = new FormData();
-    //     Object.entries({ ...fields, file }).forEach(([key, value]) => {
-    //       body.append(key, value as string | Blob );
-    //     });
-    //     const upload = await fetch(url, {method:"POST", body});
-
-    //     if (upload.ok) {
-    //       console.log('Uploaded successfully!');
-    //     } else {
-    //       console.error('Upload failed.');
-    //     }
-    //   },[])
-
     return (
         <div>
              <Fab color="primary" aria-label="add" sx={{mr:2, mb:2 ,":hover":{backgroundColor:'#9ab7c9'}}}

@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-import style from '../../../styles/scss/home.module.scss'
+import style from '../../../styles/scss/home.module.scss';
 export default function MainFeature() {
 
   return (
