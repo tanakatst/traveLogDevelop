@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useForm, SubmitHandler,  Controller } from 'react-hook-form';
-import { Value } from 'sass';
+import { register } from '../../../api/AuthApi';
 
 
 type RegisterParams = {
@@ -23,7 +23,7 @@ type SubmitParams = {
     password:string
 }
 
-const validationRules ={
+const validationRules = {
     username:{
         required: '名前を入力してください',
         minLength:{value: 2, message:'名前は2文字以上、15文字以内で入力してください' },
@@ -31,13 +31,20 @@ const validationRules ={
     },
     email:{
         required: 'メールアドレスを入力してください。',
-
+        maxLength:{value:255, message:'メールアドレスは255文字以上で入力してください。'},
+        pattern:{value:/^[\w\-._]+@[\w\-._]+\.[A-Za-z]+/, message:'入力形式がメールアドレスではありません。'},
     },
     password:{
-
+        required:'パスワードを入力してください。',
+        minLength:{value:8, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
+        maxLength:{value:24, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
+        pattern:{ value:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\-]{8,24}$/, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
     },
     confirmPass:{
-
+        required:'確認用パスワードを入力してください。',
+        minLength:{value:8, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
+        maxLength:{value:24, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
+        pattern:{ value:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\-]{8,24}$/, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
     }
 }
 
@@ -55,7 +62,7 @@ const RegisterModal= ()=> {
   };
 //
 // 新規登録機能
-  const {control, handleSubmit} = useForm(
+  const {control, handleSubmit,trigger,getValues} = useForm(
       {
           defaultValues:{
             username: '',
@@ -65,51 +72,12 @@ const RegisterModal= ()=> {
           }
       }
   )
+
+
   const onSubmit:SubmitHandler<RegisterParams> = (data)=>{
-      console.log(data);
-
+      register(data);
+      setOpen(false)
   }
-
-    // const [username, setUserName] = useState('')
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [confirmPass, setConfirmPass] = useState('');
-
-
-
-    // const changeUserName = (e:ChangeEvent<HTMLInputElement>)=>{
-    //     setUserName(e.target.value);
-    // }
-
-    // const changeEmail = (e:ChangeEvent<HTMLInputElement>) =>{
-    //     setEmail(e.target.value)
-    // }
-
-    // const changePassword = (e:ChangeEvent<HTMLInputElement>) =>{
-    //     setPassword(e.target.value)
-    // }
-
-    // const changeConfirmPass = (e:ChangeEvent<HTMLInputElement>) =>{
-    //     setConfirmPass(e.target.value)
-    // }
-    // 登録ボタンを押した時の反応
-    // const handleRegister = ()=>{
-    //     const registerParams: RegisterParams = {username, email, password, confirmPass}
-    //     const submitParams: SubmitParams = {username, email, password}
-    //     axios.get('http://localhost:8888/sanctum/csrf-cookie', {withCredentials: true})
-    //     if(password === confirmPass && password.length > 6 ){
-    //         axios.post('http://localhost:8888/api/register',submitParams , {withCredentials: true})
-    //         .then((response)=>{
-    //             console.log(response)
-    //             console.log('新規登録に成功しました')
-    //         })
-    //     }
-    //     else{
-    //         console.log('新規登録に失敗しました')
-    //     }
-    //     setOpen(false);
-    // }
-
     return (
       <>
       <div style={{margin:'auto',textAlign:'center', alignItems:'center' }}>
@@ -161,30 +129,54 @@ const RegisterModal= ()=> {
                     helperText={fieldState.error?.message}
                     // {...register('email')}
                 />
-
                 )}
             />
-
-
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="パスワード"
-                type="password"
-                fullWidth
-                variant="standard"
-                // {...register('password')}
+            <Controller
+            name='password'
+            control={control}
+            rules={{
+                required:'パスワードを入力してください。',
+                minLength:{value:8, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
+                maxLength:{value:24, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
+                pattern:{ value:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\-]{8,24}$/, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
+                validate:{message: value => value === getValues('confirmPass')? undefined : 'パスワードが確認用パスワードと一致しません。' }
+        }}
+            render = {({field,fieldState})=>(
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="パスワード"
+                    type="password"
+                    fullWidth
+                    variant="standard"
+                    {...field}
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+                                     // {...register('password')}
+                />
+            )}
             />
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="パスワード確認"
-                type="password"
-                fullWidth
-                variant="standard"
-                // {...register('confirmPass')}
+            <Controller
+            name='confirmPass'
+            control={control}
+            rules={validationRules.confirmPass}
+            render={({field,fieldState})=>(
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="パスワード確認"
+                    type="password"
+                    fullWidth
+                    variant="standard"
+                    {...field}
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+                    // {...register('confirmPass')}
+                />
+
+            )}
             />
             </DialogContent>
             <DialogActions>

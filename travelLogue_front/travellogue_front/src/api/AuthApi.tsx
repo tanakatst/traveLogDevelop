@@ -32,11 +32,11 @@ const logout = async ()=>{
     })
 }
 
-const register = async ({username, email, password}: {username:string, email: string, password:string})=>{
+const register = async ({username, email, password, confirmPass}: {username:string, email: string, password:string, confirmPass:string})=>{
     await http.get('/sanctum/csrf-cookie')
     .then(async response=>{
         const {data} = await http.post<User>('/api/register',
-        {email, password}
+        {username, email, password}
         )
         return data;
     })
@@ -47,5 +47,6 @@ const register = async ({username, email, password}: {username:string, email: st
 export{
     getUser,
     login,
-    logout
+    logout,
+    register
 }
