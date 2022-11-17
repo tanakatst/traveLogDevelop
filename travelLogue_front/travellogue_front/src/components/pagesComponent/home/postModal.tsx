@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { title } from "process";
 import {Fab} from "@mui/material";
 import { Add } from "@mui/icons-material";
-import PhotosUpload from './myPost/ImagePost';
+import { PhotoUpload } from "./myPost/ImagePost";
 import imageCompression from "browser-image-compression";
 type Inputs = {
     title: string,
@@ -22,7 +22,7 @@ const PostModal = ()=>{
     const [photos, setPhotos] = useState<File[]>([])
     const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
 
-    const onSubmit: SubmitHandler<Inputs> =async(data):Promise<void> => {
+    const onSubmit: SubmitHandler<Inputs> = async(data):Promise<void> => {
         const {title,prefecture,content} = data
         const formData = new FormData()
         formData.append('title', title)
@@ -65,12 +65,9 @@ const PostModal = ()=>{
                 >
                 <Add />
             </Fab>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>投稿</DialogTitle>
+            <Dialog open={open} onClose={handleClose} sx={{height:{xs:400, sm:600}, width: {xs:'90%', sm:'100%'}, margin:{xs:'auto'}}}>
+                <DialogTitle sx={{fontWeight:900}}>新しい旅のログ</DialogTitle>
                 <DialogContent>
-                <DialogContentText>
-                    投稿の入力をしてください
-                </DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
@@ -147,7 +144,7 @@ const PostModal = ()=>{
                     fullWidth
                     {...register('content')}
                 />
-                <PhotosUpload name="photos" photos={photos} setPhotos={setPhotos}/>
+                <PhotoUpload name="photos" photos={photos} setPhotos={setPhotos}/>
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handleClose}>キャンセル</Button>

@@ -19,6 +19,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Menu, MenuItem } from "@mui/material";
 import EditModal from '../updatePostModal';
 import DeleteModal from '../DeleteModal';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface image{
     created_at:Date,
@@ -59,6 +60,8 @@ const ShowPost  = (props:Props) =>{
     const content = props.content
     const id = props.id
     const time = props.time.toString()
+    const substrTime = time.substring(0, time.indexOf('T'))
+    const showTime = substrTime.replace(/-/g, "/",)
     const image = props.image[0].path
 
     const [expanded, setExpanded] = React.useState(false);
@@ -77,6 +80,7 @@ const ShowPost  = (props:Props) =>{
       setAnchorEl(null);
     };
 
+// 場所アイコン
 
 
   return (
@@ -87,7 +91,7 @@ const ShowPost  = (props:Props) =>{
             <CardHeader
                 avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    R
+                    田中
                 </Avatar>
                 }
                 action={
@@ -115,14 +119,13 @@ const ShowPost  = (props:Props) =>{
                     </Menu>
                 </>
                 }
-                title={title}
-                subheader={time}
+                title={`${title}　　#${prefecture}`}
+                subheader={showTime}
             />
             <CardMedia
                 component="img"
-                height="500"
+                sx={{height:{xs:200,sm:400, md:500, }}}
                 image={image}
-                alt="Paella dish"
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
@@ -130,12 +133,12 @@ const ShowPost  = (props:Props) =>{
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
+                {/* <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
+                </IconButton> */}
+                {/* <IconButton aria-label="share">
                 <ShareIcon />
-                </IconButton>
+                </IconButton> */}
                 <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}

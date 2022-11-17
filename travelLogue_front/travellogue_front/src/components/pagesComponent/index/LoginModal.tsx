@@ -30,29 +30,17 @@ const LoginModal= ()=> {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-
-
     const changeEmail = (e:ChangeEvent<HTMLInputElement>)=>{
         setEmail(e.target.value);
     }
     const changePassword = (e:ChangeEvent<HTMLInputElement>)=>{
         setPassword(e.target.value);
     }
-    // http リクエストを送る機能
-    // const handleClick =()=>{
-    //     const loginParams: LoginParams = {email, password}
-    //     axios.get('http://localhost:8888/sanctum/csrf-cookie', {withCredentials: true})
-    //     axios.post('http://localhost:8888/api/login', loginParams, {withCredentials:true})
-    //     .then((response)=>{
-    //         console.log(response);
-    //         router.push('/views/post');
-    //     })
-    // }
+
     const handleLogin =(e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
-        setOpen(false);
         login.mutate({email, password})
+        setOpen(false);
     }
 
   return (
