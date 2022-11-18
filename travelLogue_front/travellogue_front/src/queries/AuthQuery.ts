@@ -12,9 +12,11 @@ const useLogin =()=>{
     const router = useRouter();
     return useMutation(api.login,{
         onSuccess:(res)=>{
-                router.push('/home')
+            router.push('/home')
+            console.log(res)
         },
-        onError:()=>{
+        onError:(error)=>{
+            console.log(error)
         }
     })
 }

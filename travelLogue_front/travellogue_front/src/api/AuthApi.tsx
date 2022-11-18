@@ -14,12 +14,12 @@ const getUser = async()=>{
 
 const login = async ({email, password}: {email: string, password:string})=>{
     await http.get('/sanctum/csrf-cookie')
-
     .then(async response=>{
-        const {data} =await http.post<User>(`/api/login`,
+        await http.post<User>(`/api/login`,
             {email, password}
-        )
-        return data;
+        ).then(async data =>{
+             return {data}
+        })
     })
 }
 const logout = async ()=>{
