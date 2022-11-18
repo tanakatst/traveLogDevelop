@@ -1,26 +1,21 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Menu, MenuItem } from "@mui/material";
 import EditModal from '../updatePostModal';
 import DeleteModal from '../DeleteModal';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-
+import  styles from './myPost.module.css'
 interface image{
     created_at:Date,
     id:number,
@@ -87,8 +82,9 @@ const ShowPost  = (props:Props) =>{
       <>
         <Grid xs={12} justifyContent='space-between'>
 
-            <Card sx={{ maxWidth: 800, borderRadius:6 }} >
+            <Card sx={{ maxWidth: 800, borderRadius:2  ,boxShadow:10}} >
             <CardHeader
+                className={styles.CardHeader}
                 avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                     田中

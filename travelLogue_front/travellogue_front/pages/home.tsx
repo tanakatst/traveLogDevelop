@@ -72,7 +72,7 @@ const Home = ()=>{
     return(
         <>
         <NavbarLayout/>
-            <Container  sx={{mt:10, ml: '8%', width: '95%'}} className='static'>
+            <Container maxWidth='lg' sx={{mt:10, width: '95%'}} className='static'>
             <MainFeature />
                     <Box flexGrow={1}>
         {/* <img src="http://localhost:8888/storage/images/kyoto.jpeg" alt=""  style={{width:100,height:500}}/> */}
@@ -80,7 +80,7 @@ const Home = ()=>{
                                 <Grid xs={12} md={7} >
                                     <Box pt={5} width='95%' margin='auto'>
 
-                                        <Card sx={{borderRadius:6}}>
+                                        <Card sx={{borderRadius:2}}>
                                             {bottomState==0?
                                              <h1  style={{textAlign:'center',fontSize:25, fontWeight:700 ,paddingTop:10, paddingBottom:8}}>{username} さんのログ</h1>
                                             :
@@ -95,7 +95,7 @@ const Home = ()=>{
                                     </div>
                                     {bottomState==0?
 
-                                        <Grid container  sx={{mx:'auto' }}  spacing={2} >
+                                        <Grid container  sx={{mx:'auto' ,marginTop:3}}  spacing={4} >
                                             {posts.map((post,index) =>
                                             (
 
@@ -105,7 +105,7 @@ const Home = ()=>{
                                             )}
                                         </Grid>
                                     :
-                                    <Grid container  sx={{mx:'auto' }}  spacing={2} >
+                                    <Grid container  sx={{mx:'auto' }}  spacing={4} >
                                     {posts.map((post,index) =>
                                     (
 
