@@ -18,6 +18,7 @@ const login = async ({email, password}: {email: string, password:string})=>{
         await http.post<User>(`/api/login`,
             {email, password}
         ).then(async data =>{
+            console.log({data})
              return {data}
         })
     })

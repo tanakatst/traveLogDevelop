@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-
+use Symfony\Component\HttpFoundation\Response;
 class LoginController extends Controller
 {
 
@@ -23,7 +23,7 @@ class LoginController extends Controller
     $request->session()->regenerate();
     return response()->json(Auth::user());
   }
-    return response()->json([], 401);
+    return Response()->json([],401);
   }
 
 
