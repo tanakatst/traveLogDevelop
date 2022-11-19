@@ -94,13 +94,10 @@ const Home = ()=>{
                                         <PostModal />
                                     </div>
                                     {bottomState==0?
-
                                         <Grid container  sx={{mx:'auto' ,marginTop:3}}  spacing={4} >
                                             {posts.map((post,index) =>
                                             (
-
                                                 <ShowPost title = {post.title} prefecture = {post.prefecture} content = {post.content} id={post.id} time= {post.created_at} image={post.images} key= {index}  />
-
                                             )
                                             )}
                                         </Grid>

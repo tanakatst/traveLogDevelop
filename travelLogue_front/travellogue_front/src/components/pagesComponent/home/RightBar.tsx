@@ -23,7 +23,7 @@ const RightBar= (props:Props) => {
   return (
     <>
     <Box paddingTop={5}>
-        <Card sx={{ borderRadius:5 }}>
+        <Card sx={{ borderRadius:2, boxShadow:10 }}>
             <Avatar sx={{margin:'0 auto', marginTop:3}}/>
             <Typography  fontWeight={800} variant='h6' textAlign='center' p={3}>
                 {username}

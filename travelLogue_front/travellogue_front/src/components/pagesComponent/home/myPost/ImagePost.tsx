@@ -5,7 +5,7 @@ export const PhotoUpload = ({name,photos,setPhotos}: {name:string, photos:File[]
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>)=>{
         e.preventDefault()
-        setPhotos(e.currentTarget.files);
+        
     }
     return(
         <Button variant="contained" component="label" endIcon= {<AddPhotoAlternateIcon />}>
