@@ -4,6 +4,7 @@ import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CardContent from '@mui/material/CardContent';
 import DateTab from './DashbordContents/dateTab';
+import Carendar from './DashbordContents/calendar';
 
 
 
@@ -19,7 +20,12 @@ const MakePlanCard = () => {
                         </Typography>
                     </Box>
                 {dateFlag === false?
-                        <input type="date" />
+                <>
+                    <Carendar />
+                    <Box textAlign='center' pt={3}>
+                        <Button  onClick={e =>setDateFlag(!dateFlag)} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'} }}>日程確定</Button>
+                    </Box>
+                </>
                     :
                     <>
                         <DateTab />
@@ -31,17 +37,12 @@ const MakePlanCard = () => {
                         </CardContent>
                         <CardContent sx={{backgroundColor:'red'}}>
                         </CardContent>
-                        <CardContent sx={{backgrondColor:'red'}}>
-                        </CardContent>
-                        <CardContent sx={{backgrondColor:'red'}}>
-                        </CardContent>
-                        <CardContent sx={{backgrondColor:'red'}}>
-                        </CardContent>
-                        <CardContent sx={{backgrondColor:'red'}}>
-                        </CardContent>
+             
+                        <Box textAlign='center' pt={3}>
+                            <Button onClick={e =>setDateFlag(!dateFlag)} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'}}}>計画確定</Button>
+                        </Box>
                     </>
                 }
-                <Button onClick={e =>setDateFlag(!dateFlag)}>予定確定</Button>
                 </Card>
             </Box>
         </>

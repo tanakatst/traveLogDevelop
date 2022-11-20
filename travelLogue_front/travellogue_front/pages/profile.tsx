@@ -7,7 +7,7 @@ import { User } from '../src/types/User';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import EmailIcon from '@mui/icons-material/Email';
 import PasswordIcon from '@mui/icons-material/Password';
-import { ProfileComponent } from "../src/components/profile/ProfileComponent";
+import { ProfileComponent } from "../src/components/pagesComponent/profile/ProfileComponent";
 const Profile = ()=>{
     // プロフィール変更処理
     const [change, setChange] = useState(false)
