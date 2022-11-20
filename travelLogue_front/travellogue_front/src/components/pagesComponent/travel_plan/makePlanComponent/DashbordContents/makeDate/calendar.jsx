@@ -6,6 +6,7 @@ import 'react-nice-dates/build/style.css'
 import { Card, Typography,Button, Modal, Box } from '@mui/material'
 
 
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -19,12 +20,10 @@ const style = {
 };
 
 
-export default function Carendar() {
+export default function Carendar({setLeaveDate, leaveDate,returnDate, setReturnDate}) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [focus, setFocus] = useState(START_DATE)
@@ -32,6 +31,13 @@ export default function Carendar() {
     setFocus(newFocus || START_DATE)
   }
 
+
+  const onClickHandler = (e)=>{
+      e.preventDefault();
+      setLeaveDate(format(startDate, ' yyyy年MMMdd日', { locale: ja }).toString())
+      setReturnDate(format(endDate, ' yyyy年MMMdd日', { locale: ja }).toString())
+      handleClose()
+  }
   return (
     <Box width='100%' position='realative' textAlign='center' pt={3}>
             <Button onClick={handleOpen} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'}}}>日程を決める</Button>
@@ -54,7 +60,7 @@ export default function Carendar() {
                 locale={enGB}
                 />
                 <Box textAlign='center' pt={2}>
-                    <Button onClick={handleClose} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'}}}>日程を確定</Button>
+                    <Button sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'}}} onClick={e => onClickHandler(e)}>日程を確定</Button>
                 </Box>
             </Box>
             </Modal>

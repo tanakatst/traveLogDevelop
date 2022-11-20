@@ -3,12 +3,16 @@ import Card from '@mui/material/Card';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CardContent from '@mui/material/CardContent';
-import DateTab from './DashbordContents/dateTab';
-import Carendar from './DashbordContents/calendar';
+import DateTab from './DashbordContents/makePlanContent/dateTab';
+import Carendar from './DashbordContents/makeDate/calendar';
+import MakeDate from './DashbordContents/makeDate/makeDate';
 
 
 
 const MakePlanCard = () => {
+    // 旅行する日程(date)情報管理
+    const [leaveDate, setLeaveDate] = useState<string>('')
+    const [returnDate, setReturnDate] = useState<string>('')
     const [dateFlag,setDateFlag] = useState<boolean | string>(false)
     return (
         <>
@@ -20,8 +24,9 @@ const MakePlanCard = () => {
                         </Typography>
                     </Box>
                 {dateFlag === false?
+                // 日程の設定が完了したら、旅行計画欄に飛ぶ
                 <>
-                    <Carendar />
+                    <MakeDate setLeaveDate={setLeaveDate} leaveDate={leaveDate} setReturnDate={setReturnDate} returnDate={returnDate} />
                     <Box textAlign='center' pt={3}>
                         <Button  onClick={e =>setDateFlag(!dateFlag)} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'} }}>日程確定</Button>
                     </Box>
@@ -37,7 +42,7 @@ const MakePlanCard = () => {
                         </CardContent>
                         <CardContent sx={{backgroundColor:'red'}}>
                         </CardContent>
-             
+
                         <Box textAlign='center' pt={3}>
                             <Button onClick={e =>setDateFlag(!dateFlag)} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'}}}>計画確定</Button>
                         </Box>
