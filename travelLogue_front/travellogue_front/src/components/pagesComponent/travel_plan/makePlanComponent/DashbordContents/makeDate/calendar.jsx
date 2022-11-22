@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { format } from 'date-fns'
+import { differenceInDays, format } from 'date-fns'
 import { enGB, ja } from 'date-fns/locale'
 import { DateRangePickerCalendar, START_DATE } from 'react-nice-dates'
 import 'react-nice-dates/build/style.css'
 import { Card, Typography,Button, Modal, Box } from '@mui/material'
-
-
+import { addDays } from 'date-fns'
 
 const style = {
   position: 'absolute',
@@ -20,22 +19,39 @@ const style = {
 };
 
 
-export default function Carendar({setLeaveDate, leaveDate,returnDate, setReturnDate}) {
+export default function Carendar({setLeaveDate, leaveDate,returnDate, setReturnDate,setDateArray}) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
-  const [focus, setFocus] = useState(START_DATE)
-  const handleFocusChange = newFocus => {
-    setFocus(newFocus || START_DATE)
-  }
+    const [startDate, setStartDate] = useState()
+    const [endDate, setEndDate] = useState()
+    const [focus, setFocus] = useState(START_DATE)
+    const handleFocusChange = newFocus => {
+        setFocus(newFocus || START_DATE)
+    }
 
+    const dateCalculate =(startDate, endDate) =>{
+
+        let calculatedDates =[];
+        let loadDate = startDate;
+    /*計算の基準となる日時*/
+        let distDate = endDate;
+    /*日時の差をミリ秒単位で取得*/
+        let diffMilliSec = distDate - loadDate;
+    /*ミリ秒を日数に変換*/
+        let diffDays = parseInt(diffMilliSec / 1000 / 60 / 60 / 24);
+        for(let i=0; i <= diffDays; i++){
+            calculatedDates.push(addDays(new Date(startDate), i));
+        }
+        return calculatedDates;
+      };
 
   const onClickHandler = (e)=>{
       e.preventDefault();
       setLeaveDate(format(startDate, ' yyyy年MMMdd日', { locale: ja }).toString())
       setReturnDate(format(endDate, ' yyyy年MMMdd日', { locale: ja }).toString())
+      const calculatedDates = dateCalculate(startDate, endDate);
+      setDateArray(calculatedDates)
       handleClose()
   }
   return (

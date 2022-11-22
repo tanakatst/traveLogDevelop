@@ -4,7 +4,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TimePlan from './timePlan';
-
+import { format } from 'date-fns';
+import { ja } from 'date-fns/locale';
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -38,31 +39,37 @@ function a11yProps(index: number) {
   };
 }
 
-export default function DateTab() {
+interface Props {
+    dateArray:Date[],
+    setDateArray:React.Dispatch<React.SetStateAction<Date[]>>
+}
+export default function DateTab(props:Props) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+//   console.log(props.dateArray)
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="1日目" {...a11yProps(0)} />
-          <Tab label="2日目" {...a11yProps(1)} />
-          <Tab label="3日目" {...a11yProps(2)} />
+        <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons='auto' aria-label="basic tabs example">
+            {props.dateArray.map((date, index)=>(
+                 <Tab key={index} label={format(date, 'MMMdd日', { locale: ja }).toString()} {...a11yProps(index)} />
+            ))}
+
         </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <TimePlan />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
+        <Box pt={4} pl={3}>
+            <TimePlan />
+        </Box>
+      <TabPanel value={value} index={1} >
         ２日目の予定
       </TabPanel>
       <TabPanel value={value} index={2}>
         3日目の予定
       </TabPanel>
+      </Box>
     </Box>
   );
 }

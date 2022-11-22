@@ -15,7 +15,7 @@ class CreatePlacePlansTable extends Migration
     {
         Schema::create('place_plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('date_id');
+            $table->foreignId('date_plan_id');
             $table->string('place_name');
             $table->text('content');
             $table->boolean('is_start');

@@ -58,7 +58,6 @@ export default function TimePlan() {
             </Typography>
             {inputFilled?
             <>
-                <Typography></Typography>
                 <Button sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'},marginLeft:'3rem'}} onClick={e => setInputFilled(!inputFilled)}>変更する</Button>
             </>
             :
@@ -78,7 +77,6 @@ export default function TimePlan() {
             </Typography>
             {inputFilled?
             <>
-                <Typography></Typography>
                 <Button sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'},marginLeft:'2rem'}} onClick={e => setInputFilled(!inputFilled)}>変更する</Button>
             </>
             :
@@ -113,7 +111,6 @@ export default function TimePlan() {
                 <StepContent>
                 <Typography>{step.description}</Typography>
                 <Box sx={{ mb: 2 }}>
-                    <div>
                     <Button
                         variant="contained"
                         onClick={handleNext}
@@ -128,7 +125,6 @@ export default function TimePlan() {
                     >
                         Back
                     </Button>
-                    </div>
                 </Box>
                 </StepContent>
             </Step>

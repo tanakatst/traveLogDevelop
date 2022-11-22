@@ -4,7 +4,6 @@ import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CardContent from '@mui/material/CardContent';
 import DateTab from './DashbordContents/makePlanContent/dateTab';
-import Carendar from './DashbordContents/makeDate/calendar';
 import MakeDate from './DashbordContents/makeDate/makeDate';
 
 
@@ -14,6 +13,7 @@ const MakePlanCard = () => {
     const [leaveDate, setLeaveDate] = useState<string>('')
     const [returnDate, setReturnDate] = useState<string>('')
     const [dateFlag,setDateFlag] = useState<boolean | string>(false)
+    const [dateArray, setDateArray] = useState<Date[]>([])
     return (
         <>
             <Box zIndex={10} display='inline' marginTop={9} marginLeft={5} height= '820px' width={350} bgcolor='red' position='absolute' top={0} left={30}>
@@ -26,14 +26,14 @@ const MakePlanCard = () => {
                 {dateFlag === false?
                 // 日程の設定が完了したら、旅行計画欄に飛ぶ
                 <>
-                    <MakeDate setLeaveDate={setLeaveDate} leaveDate={leaveDate} setReturnDate={setReturnDate} returnDate={returnDate} />
+                    <MakeDate setLeaveDate={setLeaveDate} leaveDate={leaveDate} setReturnDate={setReturnDate} returnDate={returnDate} setDateArray={setDateArray}/>
                     <Box textAlign='center' pt={3}>
                         <Button  onClick={e =>setDateFlag(!dateFlag)} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'} }}>日程確定</Button>
                     </Box>
                 </>
                     :
                     <>
-                        <DateTab />
+                        <DateTab dateArray={dateArray} setDateArray={setDateArray}/>
                             ここには予定作成ダッシュボードを配置する予定です。
                             ここに必要な機能：検索機能,予定管理機能(カレンダーと同期)送信機能、場所検索機能、::最短ルート検索機能
                         <CardContent sx={{backgroundColor:'red'}}>
