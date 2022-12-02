@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     // Route::post('update', 'PostController@updatePost');
     // Route::delete('delete', 'PostController@destroy');
     Route::apiResource('posts', 'PostController');
+    Route::apiResource('plan', 'PlanController');
     // Route::get('post', 'PostController@post');
 });
 
