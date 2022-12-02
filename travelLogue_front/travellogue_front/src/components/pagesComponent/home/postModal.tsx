@@ -44,7 +44,8 @@ const PostModal = ()=>{
         compressedPhotoData.forEach((photoData) => {
         formData.append("photo", photoData.blob, photoData.name);
         });
-        post.mutate(formData)        setOpen(false)
+        post.mutate(formData)
+        setOpen(false)
     }
     //  　モーダルの処理
     const handleClickOpen  = () =>{
