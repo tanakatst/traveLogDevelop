@@ -115,7 +115,7 @@ const ShowPost  = (props:Props) =>{
                     </Menu>
                 </>
                 }
-                title={`${title}　　#${prefecture}`}
+                title={`${title}#${prefecture}`}
                 subheader={showTime}
             />
             <CardMedia
