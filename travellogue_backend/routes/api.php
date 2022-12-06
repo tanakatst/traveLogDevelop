@@ -25,8 +25,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::get('getPosts', 'PostController@getPost');
-    Route::post('post', 'PostController@post');
+    Route::post('editUser','LoginController@edit');
+    // Route::get('getPosts', 'PostController@getPost');
+    // Route::post('post', 'PostController@post');
+    // Route::post('update', 'PostController@updatePost');
+    // Route::delete('delete', 'PostController@destroy');
+    Route::apiResource('posts', 'PostController');
+    Route::apiResource('plan', 'PlanController');
     // Route::get('post', 'PostController@post');
 });
 

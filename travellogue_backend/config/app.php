@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +174,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Clockwork\Support\Laravel\ClockworkServiceProvider::class,
+        /*
+         *application service Providers
+        */
+        App\Providers\ApiResponseServiceProvider::class,
 
     ],
 
@@ -229,7 +234,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Clockwork' => Clockwork\Support\Laravel\Facade::class
 
     ],
+    'gcp_bucket_name' => env('GCS_BUCKET_NAME', 'travellogue'),
 
 ];
