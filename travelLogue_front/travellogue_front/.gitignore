@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-serene-boulder-366908-763619cdbea.json
+project.json
 
 # dependencies
 /node_modules
