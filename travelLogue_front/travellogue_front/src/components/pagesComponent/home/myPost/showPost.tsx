@@ -30,7 +30,8 @@ type Props = {
     prefecture: string
     content: string
     time: Date
-    image:image[]
+    image?:image[]
+
 }
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -57,7 +58,7 @@ const ShowPost  = (props:Props) =>{
     const time = props.time.toString()
     const substrTime = time.substring(0, time.indexOf('T'))
     const showTime = substrTime.replace(/-/g, "/",)
-    const image = props.image[0].path
+    const image = props.image
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -115,14 +116,29 @@ const ShowPost  = (props:Props) =>{
                     </Menu>
                 </>
                 }
+<<<<<<< HEAD
+                title={`${title} #${prefecture}`}
+=======
                 title={`${title}#${prefecture}`}
+>>>>>>> 6ac5b65539cf11dece3d84807d9ed5dd3d63154a
                 subheader={showTime}
             />
+            {image !== undefined?
+            (
+                <CardMedia
+                    component="img"
+                    sx={{height:{xs:200,sm:400, md:500, }}}
+                    image={image[0]?.path}
+                />
+            )
+            :
+            (
             <CardMedia
                 component="img"
                 sx={{height:{xs:200,sm:400, md:500, }}}
-                image={image}
             />
+            )
+            }
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {content}
