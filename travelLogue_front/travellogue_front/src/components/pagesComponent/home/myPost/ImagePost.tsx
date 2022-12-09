@@ -1,8 +1,28 @@
 import React, {useState} from "react";
 import { Box, Button, Typography } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { Label } from "@mui/icons-material";
+import { Height, Label } from "@mui/icons-material";
 import { isNumber } from "util";
+// 画像プレビューのインポート
+import { experimentalStyled as styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import { Container } from "@mui/system";
+
+
+
+const ResponsiveGrid=()=>{
+return (
+    <Box sx={{ flexGrow: 1 }}>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        {Array.from(Array(6)).map((_, index) => (
+        <Grid item xs={2} sm={4} md={4} key={index}>
+        </Grid>
+        ))}
+    </Grid>
+    </Box>
+);
+}
 
 export const PhotoUpload = ({name,photos,setPhotos}: {name:string, photos:File[], setPhotos:React.Dispatch<React.SetStateAction<File[]>>})=>{
 
@@ -18,16 +38,12 @@ export const PhotoUpload = ({name,photos,setPhotos}: {name:string, photos:File[]
         setIsFileTypeError(false)
     }
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>)=>{
-        console.log('あいうえお')
-        console.log(e.target.files?.length)
         if(e.target.files === null || e.target.files.length ===0){
             return;
         }
         // 配列の結合(ファイルの配列作成)
         const files = Object.values(e.target.files).concat();
         e.target.value = "";
-        // 後に定義する関数
-        console.log(files)
         resetErrors();
 
         // 写真ファイルの取り出し:ファイルの配列からの取り出し
@@ -60,7 +76,6 @@ export const PhotoUpload = ({name,photos,setPhotos}: {name:string, photos:File[]
         }
         //
         const concatPhotos =photos.concat(pickedPhotos);
-        console.log(concatPhotos)
         if(concatPhotos.length >= 4){
             setIsNumberError(true);
         }
@@ -84,41 +99,58 @@ export const PhotoUpload = ({name,photos,setPhotos}: {name:string, photos:File[]
     };
     return(
         <>
-            <Box width={200} height={300}>
-                {/* ここが出力されていない。 */}
-                {[...Array(3).map((_: number,index:number)=>
-                index <photos.length? (
-                    <>
-                        <Typography>あるよ-ん</Typography>
-                        <Button
-                        type="button"
-                        key={index}
-                        onClick ={() => handleCancel(index)}
-                        >
-                            <img style={{width:100, height:100}}
-                            src={URL.createObjectURL(photos[index])}
-                            alt={`投稿の写真 ${index + 1}`}
-                            />
-                        </Button>
-                    </>
-
-                )
-                :
-                (
-
-                    <Typography>なんも無いよーん</Typography>
-                )
-                )]}
-                {isSameError && (
-                    <Typography>既に選択した画像を含んでいます。</Typography>
-                )}
-                {isNumberError && (
-                    <Typography>3枚以上画像を投稿する事ができません。</Typography>
-                )}
-                {isFileTypeError && (
-                    <Typography>写真ファイル(※jpeg, png, bmp, gif, svg)の画像を投稿してください。</Typography>
-                )}
+            <Box mt={2}>
+                <Typography paddingLeft={1} color='gray' >写真投稿</Typography>
             </Box>
+            <Container sx={{mt:3, mb:3}} maxWidth='lg' >
+                <>
+                    {/* ここが出力されていない。 */}
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
+                        {[...Array(3)].map((_: number, index: number) =>{
+                            return(
+                                index < photos.length ? (
+                                    <>
+                                        <Grid item xs={2} sm={4} md={6} key={index} height={150}  display='hidden'>
+                                            <button
+                                            type="button"
+                                            style={{width:'100%', height:'100%',}}
+                                            key={index}
+                                            onClick={() => handleCancel(index)}
+                                            >
+                                                <img
+                                                style={{width:'100%', height:'100%'}}
+                                                src={URL.createObjectURL(photos[index])}
+                                                alt={`あなたの写真 ${index + 1}`}
+                                                />
+                                            </button>
+                                        </Grid>
+                                    </>
+                                )
+                                :
+                                (
+                                    <Grid item xs={2} sm={4} md={4} key={index}>
+                                        <label htmlFor={name} key={index}>
+                                            <Box>
+                                                <img src="" alt="" />
+                                            </Box>
+                                        </label>
+                                    </Grid>
+                                )
+                            )
+                        }
+                        )}
+                    </Grid>
+                    {isSameError && (
+                        <Typography>既に選択した画像を含んでいます。</Typography>
+                    )}
+                    {isNumberError && (
+                        <Typography>3枚以上画像を投稿する事ができません。</Typography>
+                    )}
+                    {isFileTypeError && (
+                        <Typography>写真ファイル(※jpeg, png, bmp, gif, svg)の画像を投稿してください。</Typography>
+                    )}
+                </>
+            </Container>
             <Typography>画像は最大3枚までです。</Typography>
             <Button variant="contained" component="label" endIcon= {<AddPhotoAlternateIcon />}>
                 Upload

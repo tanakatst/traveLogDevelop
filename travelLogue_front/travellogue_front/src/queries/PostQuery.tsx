@@ -8,7 +8,7 @@ const useGetPosts =()=> {
 }
 
 const usePost = ()=>{
-    return useMutation(api.Post,{
+    return useMutation(api.post,{
         onSuccess:(res)=>{
             console.log('投稿に成功しました。')
             return res

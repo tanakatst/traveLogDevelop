@@ -33,19 +33,20 @@ class PostController extends Controller
         $post_id = $post->id;
         // ここの処理をより簡潔かつ高パフォーマンスで記述する必要。
         if($request->hasFile('photo')){
-            $photo = $request->file('photo');
-            $photo_name = $photo->getClientOriginalName();
-            $photo->storeAs('public/' . $dir, $photo_name);
-            $post_image = PostImage::create([
-                'name' => $photo->getClientOriginalName(),
-                'path' => 'http://localhost:8888/storage/' .$dir . '/' . $photo_name,
-                'post_id' => $post_id
-            ]);
+                $photos = $request->getAll->file('photo');
+                $photo_name = $photos->getClientOriginalName();
+                $photos->storeAs('public/' . $dir, $photo_name);
+                $post_image = PostImage::create([
+                    'name' => $photos->getClientOriginalName(),
+                    'path' => 'http://localhost:8888/storage/' .$dir . '/' . $photo_name,
+                    'post_id' => $post_id
+                ]);
+            array_push($request ->file('photo'), $post_image);
         }
 
         // ここに関してできていない。
 
-        return response()->json($post_image, 200);
+        return response()->json($request, 200);
 
         // return response()->json($request, 200);
     }
