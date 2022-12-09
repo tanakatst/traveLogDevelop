@@ -9,7 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useForm, SubmitHandler,  Controller } from 'react-hook-form';
 import { register } from '../../../api/AuthApi';
-
+import { useRouter } from 'next/router';
 
 type RegisterParams = {
     username: string
@@ -49,10 +49,11 @@ const validationRules = {
 }
 
 const RegisterModal= ()=> {
+    // 登録後、ページを飛ばす為のルーター
+    const router = useRouter();
 
     // モーダルの機能
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -76,7 +77,9 @@ const RegisterModal= ()=> {
 
   const onSubmit:SubmitHandler<RegisterParams> = (data)=>{
       register(data);
-      setOpen(false)
+      setOpen(false);
+      router.push('/home');
+
   }
     return (
       <>
