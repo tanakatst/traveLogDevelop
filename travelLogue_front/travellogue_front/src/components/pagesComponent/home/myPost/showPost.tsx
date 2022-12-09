@@ -59,7 +59,6 @@ const ShowPost  = (props:Props) =>{
     const substrTime = time.substring(0, time.indexOf('T'))
     const showTime = substrTime.replace(/-/g, "/",)
     const image = props.image
-
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {

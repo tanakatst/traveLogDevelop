@@ -32,7 +32,6 @@ const theme = createTheme({
             '"Segoe UI Emoji"',
             '"Segoe UI Symbol"',
           ].join(','),
-
     },
 });
 

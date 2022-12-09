@@ -18,7 +18,7 @@ const getPosts = async () =>{
         return data;
 }
 
-const Post = async (formData:FormData) => {
+const post = async (formData:FormData) => {
     await http.get('/sanctum/csrf-cookie')
     .then(async response=>{
         const data = await http.post('/api/posts',
@@ -53,7 +53,7 @@ const deletePost = async(id:number) =>{
 
 export {
     getPosts,
-    Post,
+    post,
     updatePost,
     deletePost
 }

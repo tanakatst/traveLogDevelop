@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Box, Button, Typography } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { Label } from "@mui/icons-material";
+import { Height, Label } from "@mui/icons-material";
 import { isNumber } from "util";
 // 画像プレビューのインポート
 import { experimentalStyled as styled } from '@mui/material/styles';
@@ -102,30 +102,28 @@ export const PhotoUpload = ({name,photos,setPhotos}: {name:string, photos:File[]
             <Box mt={2}>
                 <Typography paddingLeft={1} color='gray' >写真投稿</Typography>
             </Box>
-            <Container sx={{mt:3, mb:3, border:1, borderColor:'gray'}} maxWidth='lg' >
+            <Container sx={{mt:3, mb:3}} maxWidth='lg' >
                 <>
                     {/* ここが出力されていない。 */}
-                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
                         {[...Array(3)].map((_: number, index: number) =>{
-                            console.log(index)
                             return(
                                 index < photos.length ? (
                                     <>
-                                                <Grid item xs={2} sm={4} md={4} key={index}>
-                                                    <button
-                                                    type="button"
-                                                    style={{width:'100%', height:'100%'}}
-                                                    key={index}
-                                                    onClick={() => handleCancel(index)}
-                                                    >
-                                                        <img
-                                                        style={{width:'100%', height:'100%'}}
-                                                        src={URL.createObjectURL(photos[index])}
-                                                        alt={`あなたの写真 ${index + 1}`}
-                                                        />
-                                                    </button>
-                                                </Grid>
-
+                                        <Grid item xs={2} sm={4} md={6} key={index} height={150}  display='hidden'>
+                                            <button
+                                            type="button"
+                                            style={{width:'100%', height:'100%',}}
+                                            key={index}
+                                            onClick={() => handleCancel(index)}
+                                            >
+                                                <img
+                                                style={{width:'100%', height:'100%'}}
+                                                src={URL.createObjectURL(photos[index])}
+                                                alt={`あなたの写真 ${index + 1}`}
+                                                />
+                                            </button>
+                                        </Grid>
                                     </>
                                 )
                                 :

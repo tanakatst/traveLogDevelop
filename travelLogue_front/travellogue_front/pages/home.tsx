@@ -49,8 +49,8 @@ const Home = ()=>{
         http.get('/sanctum/csrf-cookie')
         .then(async response=>{
             const{ data } = await  http.get<Post[]>('/api/posts')
-            setPosts(data.reverse());
-            console.log(data)
+            const reversedData = data.reverse()
+            setPosts(reversedData);
         })
     }
     const [username, setUsername] = useState<string>()
