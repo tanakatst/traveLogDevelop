@@ -116,11 +116,8 @@ const ShowPost  = (props:Props) =>{
                     </Menu>
                 </>
                 }
-<<<<<<< HEAD
+
                 title={`${title} #${prefecture}`}
-=======
-                title={`${title}#${prefecture}`}
->>>>>>> 6ac5b65539cf11dece3d84807d9ed5dd3d63154a
                 subheader={showTime}
             />
             {image !== undefined?

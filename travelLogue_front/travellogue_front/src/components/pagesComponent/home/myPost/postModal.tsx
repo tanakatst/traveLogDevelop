@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, InputLabel, Box, FormControl, MenuItem, Select, IconButton } from '@mui/material';
-import { usePost } from "../../../queries/PostQuery";
+import { usePost } from "../../../../queries/PostQuery";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { title } from "process";
 import {Fab} from "@mui/material";
 import { Add } from "@mui/icons-material";
-import { PhotoUpload } from "./myPost/ImagePost";
+import { PhotoUpload } from "./ImagePost";
 import imageCompression from "browser-image-compression";
 type Inputs = {
     title: string,

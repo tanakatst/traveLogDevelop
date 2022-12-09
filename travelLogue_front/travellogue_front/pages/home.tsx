@@ -6,7 +6,7 @@ import ShowPost from "../src/components/pagesComponent/home/myPost/showPost";
 import { Box, Card, Divider, Stack} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from "@mui/material/Container";
-import PostModal from "../src/components/pagesComponent/home/postModal";
+import PostModal from "../src/components/pagesComponent/home/myPost/postModal";
 import NavbarLayout from "../src/components/Navigation/NavbarLayout";
 import MainFeature from "../src/components/pagesComponent/home/MainFeature";
 import { useUser } from "../src/queries/AuthQuery";
