@@ -41,6 +41,7 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+// $app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Return The Application

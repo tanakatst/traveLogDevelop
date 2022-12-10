@@ -41,9 +41,11 @@ const PostModal = ()=>{
               };
             })
           );
-        compressedPhotoData.forEach((photoData) => {
-        formData.append("photo", photoData.blob, photoData.name);
+
+        compressedPhotoData.forEach((photoData,index) => {
+            formData.append('photos[' + index + ']', photoData.blob, photoData.name);
         });
+        console.log(...formData.entries());
         post.mutate(formData)
         setOpen(false)
     }
@@ -153,7 +155,7 @@ const PostModal = ()=>{
                 </Button>
                 </DialogActions>
             </Dialog>
-    </div>
+        </div>
     )
 
 }

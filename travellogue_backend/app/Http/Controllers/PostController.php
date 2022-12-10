@@ -23,7 +23,7 @@ class PostController extends Controller
     public function store(Request $request){
         // $service = new UtilityService();
         // $bucket = $client->bucket('travellogue'); // 作成したバケット名
-        $dir = 'images';
+        $dir = '/images';
         $post = Post::create([
             "title"=> $request->title,
             "prefecture" => $request->prefecture,
@@ -31,22 +31,24 @@ class PostController extends Controller
             "user_id"=> \Auth::id()
         ]);
         $post_id = $post->id;
-        // ここの処理をより簡潔かつ高パフォーマンスで記述する必要。
-        if($request->hasFile('photo')){
-                $photos = $request->getAll->file('photo');
-                $photo_name = $photos->getClientOriginalName();
-                $photos->storeAs('public/' . $dir, $photo_name);
+        if($request->hasFile('photos')){
+            $photos = $request->file('photos');
+            foreach($photos as $index => $photo){
+                $photo_name = $photo->getClientOriginalName();
+                $photo->storeAs('public/' . $dir, $photo_name);
                 $post_image = PostImage::create([
-                    'name' => $photos->getClientOriginalName(),
+                    'name' => $photo->getClientOriginalName(),
                     'path' => 'http://localhost:8888/storage/' .$dir . '/' . $photo_name,
                     'post_id' => $post_id
                 ]);
-            array_push($request ->file('photo'), $post_image);
+            }
         }
+        Log::debug(print_r($request->file('photo'), true));
 
+    // ここに関してできていない。
         // ここに関してできていない。
 
-        return response()->json($request, 200);
+        return response()->json('はひふへほ', 200);
 
         // return response()->json($request, 200);
     }
