@@ -16,19 +16,18 @@ type Inputs = {
 
 const PostModal = ()=>{
     const [open, setOpen] = React.useState(false);
-
-    // posts
-    // formData形式にする処理
+    // 写真ステート
     const [photos, setPhotos] = useState<File[]>([])
+    // react hook form
     const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
-
+    // 投稿機能
     const onSubmit: SubmitHandler<Inputs> = async(data):Promise<void> => {
         const {title,prefecture,content} = data
         const formData = new FormData()
         formData.append('title', title)
         formData.append('prefecture',prefecture)
         formData.append('content', content)
-
+        // 写真の容量小さくする処理
         const compressOptions = {
             // 3MB以下に圧縮する
             maxSizeMB: 3,
@@ -45,7 +44,6 @@ const PostModal = ()=>{
         compressedPhotoData.forEach((photoData,index) => {
             formData.append('photos[' + index + ']', photoData.blob, photoData.name);
         });
-        console.log(...formData.entries());
         post.mutate(formData)
         setOpen(false)
     }

@@ -1,21 +1,13 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Menu, MenuItem } from "@mui/material";
-import EditModal from '../updatePostModal';
-import DeleteModal from '../DeleteModal';
-import  styles from './myPost.module.css'
+import SwipeableViews from 'react-swipeable-views'
+import { autoPlay } from 'react-swipeable-views-utils';
+import { PostCard } from "./PostCard";
+import { title } from 'process';
+
+
 interface image{
     created_at:Date,
     id:number,
@@ -49,6 +41,34 @@ interface ExpandMoreProps extends IconButtonProps {
   }));
 
 
+
+// 画像カルーセル表示
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+const images = [
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath:
+      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bird',
+    imgPath:
+      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bali, Indonesia',
+    imgPath:
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+  },
+  {
+    label: 'Goč, Serbia',
+    imgPath:
+      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+];
+
+// 投稿表示コンポーネント
 const ShowPost  = (props:Props) =>{
 
     const title = props.title
@@ -60,7 +80,6 @@ const ShowPost  = (props:Props) =>{
     const showTime = substrTime.replace(/-/g, "/",)
     const image = props.image
     const [expanded, setExpanded] = React.useState(false);
-
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -80,84 +99,8 @@ const ShowPost  = (props:Props) =>{
 
   return (
       <>
-        <Grid xs={12} justifyContent='space-between'>
-
-            <Card sx={{ maxWidth: 800, borderRadius:2  ,boxShadow:10}} >
-            <CardHeader
-                className={styles.CardHeader}
-                avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    田中
-                </Avatar>
-                }
-                action={
-                <>
-                <IconButton
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-                >
-                    <MoreVertIcon />
-                </IconButton>
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        <MenuItem ><EditModal id={id} title={title} prefecture={prefecture} content={content}/></MenuItem>
-                        <MenuItem ><DeleteModal id={id}/></MenuItem>
-                    </Menu>
-                </>
-                }
-
-                title={`${title} #${prefecture}`}
-                subheader={showTime}
-            />
-            {image !== undefined?
-            (
-                <CardMedia
-                    component="img"
-                    sx={{height:{xs:200,sm:400, md:500, }}}
-                    image={image[0]?.path}
-                />
-            )
-            :
-            (
-            <CardMedia
-                component="img"
-                sx={{height:{xs:200,sm:400, md:500, }}}
-            />
-            )
-            }
-            <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    {content}
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                {/* <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-                </IconButton> */}
-                {/* <IconButton aria-label="share">
-                <ShareIcon />
-                </IconButton> */}
-                <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-                >
-                <ExpandMoreIcon />
-                </ExpandMore>
-            </CardActions>
-
-            </Card>
+        <Grid xs={12} md={5} justifyContent='space-between'>
+            <PostCard id={id} title={title} prefecture={prefecture} content={content} time={time} image={image}/>
         </Grid>
       </>
   );
