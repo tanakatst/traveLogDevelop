@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
 const useGetPosts =()=> {
-   return useQuery('posts',()=>api.getPosts())
+    return useQuery('posts', ()=>api.getPosts())
 }
 
 const usePost = ()=>{

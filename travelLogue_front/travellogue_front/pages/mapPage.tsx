@@ -21,9 +21,9 @@ const mapPage = () => {
 
   return (
   <>
-
-      <NavbarLayout />
+    <NavbarLayout>
       <Map />
+    </NavbarLayout>
     </>
   );
 }

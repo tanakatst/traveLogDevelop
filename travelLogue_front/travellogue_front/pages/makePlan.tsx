@@ -11,8 +11,9 @@ const MakePlan = () => {
     // google map表示設定
     return(
     <>
-        <NavbarLayout />
-        <MakePlanMap/>
+        <NavbarLayout>
+            <MakePlanMap/>
+        </NavbarLayout>
     </>
 
 

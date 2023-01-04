@@ -43,13 +43,7 @@ class PostController extends Controller
                 ]);
             }
         }
-        Log::debug(print_r($request->file('photo'), true));
-
-    // ここに関してできていない。
-        // ここに関してできていない。
-
-        return response()->json('はひふへほ', 200);
-
+        return response()->json('投稿完了', 200);
         // return response()->json($request, 200);
     }
     public function update(Request $request, Post $post){

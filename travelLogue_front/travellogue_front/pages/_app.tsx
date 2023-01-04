@@ -1,11 +1,10 @@
-import 'tailwindcss/tailwind.css';
-
+import '@fontsource/public-sans';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AuthProvider } from '../hooks/AuthContext'
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import {ThemeProvider} from '@mui/material/styles'
+import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles'
 import theme from '../src/styles/mui/theme';
 import { useEffect } from 'react';
 const queryClient = new QueryClient()
@@ -21,10 +20,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
       <>
             <ThemeProvider theme={theme}>
-                <QueryClientProvider client={queryClient}>
-                <Component {...pageProps} />
-                {/* <ToastContainer hideProgressBar={true}/> */}
-                </QueryClientProvider>
+                <StyledEngineProvider injectFirst>
+                    <QueryClientProvider client={queryClient}>
+                    <Component {...pageProps} />
+                    {/* <ToastContainer hideProgressBar={true}/> */}
+                    </QueryClientProvider>
+                </StyledEngineProvider>
             </ThemeProvider>
       </>
   )
