@@ -81,7 +81,7 @@ const Home = ()=>{
                         <Box flexGrow={1}>
             {/* <img src="http://localhost:8888/storage/images/kyoto.jpeg" alt=""  style={{width:100,height:500}}/> */}
                             <Grid container spacing={3} justifyContent='space-between'>
-                                    <Grid xs={12} md={8} >
+                                    <Grid xs={12}>
                                         <Box pt={5} width='95%' margin='auto'>
                                             <Typography variant="h5" font-Weight='bold' textAlign='center' fontWeight={600}>
                                                 {username} さんの投稿
@@ -89,7 +89,7 @@ const Home = ()=>{
                                             <ChangeNav/>
                                                 {/* button navigation 予定 */}
                                         </Box>
-                                        <div style={{position:"fixed", bottom:3, right: 3}} >
+                                        <div style={{position:"fixed", bottom:15, right: 15,zIndex:5 }} >
                                             <PostModal />
                                         </div>
                                         {/* 自分の投稿 */}

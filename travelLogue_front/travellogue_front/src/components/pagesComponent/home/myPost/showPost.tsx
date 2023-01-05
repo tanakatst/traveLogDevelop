@@ -99,7 +99,7 @@ const ShowPost  = (props:Props) =>{
 
   return (
       <>
-        <Grid xs={12} md={5} justifyContent='space-between'>
+        <Grid xs={12}  md={5} lg={4} justifyContent='space-between'>
             <PostCard id={id} title={title} prefecture={prefecture} content={content} time={time} image={image}/>
         </Grid>
       </>

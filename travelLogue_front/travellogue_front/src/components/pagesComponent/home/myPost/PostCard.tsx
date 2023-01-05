@@ -20,7 +20,7 @@ export const PostCard = ({id, title,prefecture,content,time,image}:Post) =>{
     const showTime = substrTime.replace(/-/g, "/",)
   return (
         <CssVarsProvider theme={deepmerge(joyTheme, muiTheme)}>
-            <Card variant="outlined" sx={{ width: 320 }}>
+            <Card variant="outlined" sx={{ width: '90%' }}>
             <CardOverflow>
                 <AspectRatio ratio="2" objectFit='cover'>
                 {image?
