@@ -30,13 +30,15 @@ import theme from '../../../styles/mui/theme';
 import { deepmerge } from '@mui/utils';
 import { joyTheme, muiTheme } from '../../styles/mui/JoytMaterialMixed';
 import { Grid, Typography, chipClasses } from '@mui/material';
-
+import { useLogout } from '../../queries/AuthQuery';
 type Props = {
     children: ReactNode
 }
 
 
 const NavbarLayout = ({children, ...props}: Props) => {
+    // ログアウトonclickで発火させる
+    const logout = useLogout()
   return (
       <CssVarsProvider theme={(deepmerge(muiTheme, joyTheme))}>
         <Grid container xs={12}>
@@ -110,6 +112,14 @@ const NavbarLayout = ({children, ...props}: Props) => {
                         <ListItemButton>Settings</ListItemButton>
                         </List>
                     </ListItem>
+                    <Link href='/profile'>
+                        <ListItemButton  onClick={()=> logout.mutate()}>
+                            <ListItemDecorator>
+                            <PersonIcon />
+                            </ListItemDecorator>
+                            ログアウト
+                        </ListItemButton>
+                    </Link>
                     </List>
                     <Card variant="soft" row sx={{ mt: 1, mb: 2 }}>
                     <CircularProgress value={35} determinate thickness={2} size="md">
@@ -176,7 +186,7 @@ export default NavbarLayout
                             // import Link from 'next/link';
 import mapPage from '../../../pages/mapPage';
 import Link from 'next/link';
-import { Home, Map, Tour } from '@mui/icons-material';
+import { Home, LogoutOutlined, Map, Tour } from '@mui/icons-material';
 import { borderRadius } from '@mui/system';
 
 

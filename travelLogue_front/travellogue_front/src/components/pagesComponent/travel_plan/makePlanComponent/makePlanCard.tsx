@@ -14,6 +14,8 @@ const MakePlanCard = () => {
     const [returnDate, setReturnDate] = useState<string>('')
     const [dateFlag,setDateFlag] = useState<boolean | string>(false)
     const [dateArray, setDateArray] = useState<Date[]>([])
+    const [places, setPlaces] = useState([])
+    // 場所の情報を管理しなくてはならない。
     return (
         <>
             <Box zIndex={10} display='inline' marginTop={9} marginLeft={5} height= '820px' width={350} bgcolor='red' position='absolute' top={0} left={30}>
@@ -24,13 +26,13 @@ const MakePlanCard = () => {
                         </Typography>
                     </Box>
                 {dateFlag === false?
-                // 日程の設定が完了したら、旅行計画欄に飛ぶ
-                <>
-                    <MakeDate setLeaveDate={setLeaveDate} leaveDate={leaveDate} setReturnDate={setReturnDate} returnDate={returnDate} setDateArray={setDateArray}/>
-                    <Box textAlign='center' pt={3}>
-                        <Button  onClick={e =>setDateFlag(!dateFlag)} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'} }}>日程確定</Button>
-                    </Box>
-                </>
+                    // 日程の設定が完了したら、旅行計画欄に飛ぶ
+                    <>
+                        <MakeDate setLeaveDate={setLeaveDate} leaveDate={leaveDate} setReturnDate={setReturnDate} returnDate={returnDate} setDateArray={setDateArray}/>
+                        <Box textAlign='center' pt={3}>
+                            <Button  onClick={e =>setDateFlag(!dateFlag)} sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'} }}>日程確定</Button>
+                        </Box>
+                    </>
                     :
                     <>
                         <DateTab dateArray={dateArray} setDateArray={setDateArray}/>

@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
+import { type } from 'os';
 
 // これをステート管理で保持する。
 const steps = [
@@ -29,15 +30,17 @@ const steps = [
 //   },
 ];
 
+
+
 export default function TimePlan() {
   const [activeStep, setActiveStep] = useState(0);
 //inputの値が完了したらテキストにして、新しいインプットを生み出すボタンを出現する。
     const [inputFilled, setInputFilled] = useState(false)
+    const [places, setPlaces] = useState<string[]>([])
     const inputFilledHandler = (e: React.KeyboardEvent<HTMLDivElement> |  React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) =>{
         e.preventDefault()
         setInputFilled(!inputFilled);
     }
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -56,6 +59,7 @@ export default function TimePlan() {
             <Typography fontSize={15} marginRight={1}>
                 出発地：
             </Typography>
+
             {inputFilled?
             <>
                 <Button sx={{ backgroundColor:'#3a9bb3', color:'#fff' , ":hover":{backgroundColor:'#9ab7c9'},marginLeft:'3rem'}} onClick={e => setInputFilled(!inputFilled)}>変更する</Button>
@@ -91,6 +95,15 @@ export default function TimePlan() {
             }
         </Box>
         <Box sx={{ maxWidth: 400 }}>
+            {places?
+            places.map(place=> {
+                return(
+                    <Typography>{place}</Typography>
+                )
+            })
+            :
+            null
+            }
         <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
             <Step key={step.label.place}>

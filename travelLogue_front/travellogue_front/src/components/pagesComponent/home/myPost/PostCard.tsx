@@ -7,17 +7,32 @@ import Typography from '@mui/joy/Typography';
 import IconButton from '@mui/joy/IconButton';
 import Link from '@mui/joy/Link';
 import Favorite from '@mui/icons-material/Favorite';
-import { CssVarsProvider } from '@mui/joy';
+import { Button, CssVarsProvider, Menu, MenuItem } from '@mui/joy';
 import { deepmerge } from '@mui/utils';
 import { joyTheme, muiTheme } from '../../../../styles/mui/JoytMaterialMixed';
-import { Grid } from '@mui/material';
-import { title } from 'process';
 import { Post } from '../../../../types/Post';
+import DeleteModal from '../DeleteModal';
+import EditModal from '../updatePostModal';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const PostCard = ({id, title,prefecture,content,time,image}:Post) =>{
     const stringTime = time.toString()
     const substrTime = stringTime.substring(0, stringTime.indexOf('T'))
     const showTime = substrTime.replace(/-/g, "/",)
+
+
+
+    // 編集削除メニュー
+    const [anchorEl, setAnchorEl] = React.useState<EventTarget & HTMLAnchorElement | null>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        // state定義の部分に型を追加する。
+      setAnchorEl(e.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
   return (
         <CssVarsProvider theme={deepmerge(joyTheme, muiTheme)}>
             <Card variant="outlined" sx={{ width: '90%' }}>
@@ -82,6 +97,29 @@ export const PostCard = ({id, title,prefecture,content,time,image}:Post) =>{
                 <Typography level="body3" sx={{ fontWeight: 'md', color: 'text.secondary' }}>
                 {showTime}
                 </Typography>
+
+                <IconButton
+                    id="basic-demo-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    variant="outlined"
+                    color="neutral"
+                    onClick={(e) =>handleClick(e)}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="basic-demo-button"
+                >
+                    <MenuItem onClick={handleClose}><EditModal id={id} title={title} prefecture={prefecture} content={content}/></MenuItem>
+                    <MenuItem onClick={handleClose}><DeleteModal id={id}/></MenuItem>
+                </Menu>
+
             </CardOverflow>
             </Card>
         </CssVarsProvider>
