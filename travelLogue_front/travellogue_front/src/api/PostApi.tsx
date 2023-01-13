@@ -2,6 +2,14 @@ import React from "react";
 import { http } from "./axios.csrf";
 import { title } from 'process';
 
+interface image{
+    created_at:Date,
+    id:number,
+    name:string,
+    path:string,
+    post_id:number,
+    updated_at:Date
+}
 type Post = {
     id: number
     title: string
@@ -10,12 +18,12 @@ type Post = {
     content: string
     created_at: Date
     updated_at:Date
+    images:image[]
 }
 
 const getPosts = async () =>{
-        const {data} = (await http.get<Post[]>('api/posts'))
-        // console.log(data);
-        return data;
+    const{ data } = await  http.get<Post[]>('/api/posts')
+    return data;
 }
 
 const post = async (formData:FormData) => {

@@ -16,19 +16,18 @@ type Inputs = {
 
 const PostModal = ()=>{
     const [open, setOpen] = React.useState(false);
-
-    // posts
-    // formData形式にする処理
+    // 写真ステート
     const [photos, setPhotos] = useState<File[]>([])
+    // react hook form
     const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
-
+    // 投稿機能
     const onSubmit: SubmitHandler<Inputs> = async(data):Promise<void> => {
         const {title,prefecture,content} = data
         const formData = new FormData()
         formData.append('title', title)
         formData.append('prefecture',prefecture)
         formData.append('content', content)
-
+        // 写真の容量小さくする処理
         const compressOptions = {
             // 3MB以下に圧縮する
             maxSizeMB: 3,
@@ -41,8 +40,9 @@ const PostModal = ()=>{
               };
             })
           );
-        compressedPhotoData.forEach((photoData) => {
-        formData.append("photo", photoData.blob, photoData.name);
+
+        compressedPhotoData.forEach((photoData,index) => {
+            formData.append('photos[' + index + ']', photoData.blob, photoData.name);
         });
         post.mutate(formData)
         setOpen(false)
@@ -60,9 +60,12 @@ const PostModal = ()=>{
     const post = usePost();
     return (
         <div>
-             <Fab color="primary" aria-label="add" sx={{mr:2, mb:2 ,":hover":{backgroundColor:'#9ab7c9'}}}
+             {/* <Fab color="primary" aria-label="add" sx={{mr:2, mb:2 ,zIndex:80,":hover":{backgroundColor:'#9ab7c9'}}}
                 onClick={handleClickOpen}
                 >
+                <Add />
+            </Fab> */}
+            <Fab aria-label="add" onClick={handleClickOpen} sx={{backgroundColor:'#3a9bb3',":hover":{backgroundColor:'#2f788b'}}}>
                 <Add />
             </Fab>
             <Dialog open={open} onClose={handleClose} sx={{height:{xs:400, sm:600}, width: {xs:'90%', sm:'100%'}, margin:{xs:'auto'}}}>
@@ -153,7 +156,7 @@ const PostModal = ()=>{
                 </Button>
                 </DialogActions>
             </Dialog>
-    </div>
+        </div>
     )
 
 }

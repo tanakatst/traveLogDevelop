@@ -25,31 +25,33 @@ const Profile = ()=>{
     },[data])
     return(
         <>
-            <NavbarLayout />
-            <Container maxWidth="sm" sx={{height:600, marginTop:15}}>
-                <Box textAlign='center'>
-                    <Stack>
-                        <Paper elevation={3} sx={{height:600}} >
-                            <Typography variant="h5" sx={{textAlign:'center', paddingTop:4,paddingBottom:3}}>
-                                プロフィール
-                            </Typography>
-                            <Avatar sx={{margin:'0 auto', marginBottom:2}} />
-                            <Button onClick={e => changeProfile(e)}>
-                                プロフィールを変更する
-                            </Button>
-                            <Box pt={4}>
-                                <List sx={{width: '100%',
-                                            margin:'auto',
-                                            maxWidth: 360,
-                                            bgcolor: 'background.paper',}}
-                                >
-                                    <ProfileComponent name={user?.name} email={user?.email} changeState = {change}/>
-                                </List>
-                            </Box>
-                        </Paper>
-                    </Stack>
-                </Box>
-            </Container>
+            <NavbarLayout>
+                <Container maxWidth="sm" sx={{height:600, marginTop:15}}>
+                    <Box textAlign='center'>
+                        <Stack>
+                            <Paper elevation={3} sx={{height:600}} >
+                                <Typography variant="h5" sx={{textAlign:'center', paddingTop:4,paddingBottom:3}}>
+                                    プロフィール
+                                </Typography>
+                                <Avatar sx={{margin:'0 auto', marginBottom:2}} />
+                                <Button onClick={e => changeProfile(e)}>
+                                    プロフィールを変更する
+                                </Button>
+                                <Box pt={4}>
+                                    <List sx={{width: '100%',
+                                                margin:'auto',
+                                                maxWidth: 360,
+                                                bgcolor: 'background.paper',}}
+                                    >
+                                        <ProfileComponent name={user?.name} email={user?.email} changeState = {change}/>
+                                    </List>
+                                </Box>
+                            </Paper>
+                        </Stack>
+                    </Box>
+                </Container>
+            </NavbarLayout>
+
         </>
     )
 

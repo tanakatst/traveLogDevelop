@@ -1,5 +1,5 @@
 import React from 'react';
-import NavbarLayout from '../../Navigation/Navbar';
+import NavbarLayout from '../../Navigation/NavbarLayout';
 import { LoadScript } from '@react-google-maps/api';
 import { GoogleMap } from '@react-google-maps/api';
 import MakePlanCard from './makePlanComponent/makePlanCard';
