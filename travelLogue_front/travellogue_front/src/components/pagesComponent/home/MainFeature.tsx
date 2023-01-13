@@ -17,7 +17,7 @@ export default function MainFeature() {
         <Grid item md={12}>
             <Sheet
             variant='soft'
-            color='primary'
+            // color='primary'
             sx={{
                 borderRadius:15,
                 width:'98%',

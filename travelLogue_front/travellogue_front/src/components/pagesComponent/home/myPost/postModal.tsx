@@ -60,9 +60,12 @@ const PostModal = ()=>{
     const post = usePost();
     return (
         <div>
-             <Fab color="primary" aria-label="add" sx={{mr:2, mb:2 ,":hover":{backgroundColor:'#9ab7c9'}}}
+             {/* <Fab color="primary" aria-label="add" sx={{mr:2, mb:2 ,zIndex:80,":hover":{backgroundColor:'#9ab7c9'}}}
                 onClick={handleClickOpen}
                 >
+                <Add />
+            </Fab> */}
+            <Fab aria-label="add" onClick={handleClickOpen} sx={{backgroundColor:'#3a9bb3',":hover":{backgroundColor:'#2f788b'}}}>
                 <Add />
             </Fab>
             <Dialog open={open} onClose={handleClose} sx={{height:{xs:400, sm:600}, width: {xs:'90%', sm:'100%'}, margin:{xs:'auto'}}}>
