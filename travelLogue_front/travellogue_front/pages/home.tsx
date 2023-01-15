@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 // import {useLogout}
 import { http } from "../src/api/axios.csrf";
 import ShowPost from "../src/components/pagesComponent/home/myPost/showPost";
-import { Box, Card, Divider, Stack, Typography} from "@mui/material";
+import { Box, Divider, Stack, Typography, makeStyles} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from "@mui/material/Container";
 import PostModal from "../src/components/pagesComponent/home/myPost/postModal";
@@ -18,6 +18,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import ShowPeoplePost from '../src/components/pagesComponent/home/peoplePost.tsx/showPeoplePost';
 import { getPosts } from "../src/api/PostApi";
 import { useGetPosts } from "../src/queries/PostQuery";
+import { Card } from "@mui/joy";
 /**
  *
  * ログアウトボタンからリクエストが渡ると、queryにわたり、logout APIが実行されるように実装
@@ -123,4 +124,3 @@ const Home = ()=>{
     )
 }
 export default Home;
-
