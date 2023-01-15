@@ -14,5 +14,4 @@ export default async function UploadImage(req:any, res:any){
       };
     const [response] = await file.generateSignedPostPolicyV4(options);
     res.status(200).json(response);
-
 }
