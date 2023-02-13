@@ -41,7 +41,7 @@ export default function Album() {
         <Box
           sx={{
             bgcolor: 'background.paper',
-            pt: 8,
+            pt: '300px',
             pb: 6,
           }}
         >
@@ -128,7 +128,7 @@ export default function Album() {
             </Stack>
           </Container>
         </Box>
-       
+
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>

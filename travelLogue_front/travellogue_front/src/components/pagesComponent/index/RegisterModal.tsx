@@ -85,7 +85,7 @@ const RegisterModal= ()=> {
       <>
       <div style={{margin:'auto',textAlign:'center', alignItems:'center' }}>
 
-        <Button variant='contained' sx={{ mx:'auto', my:'auto'}}  onClick={handleClickOpen}>
+        <Button variant='contained' sx={{ mx:'auto', my:'auto', backgroundColor:'bgColor.blue'}}  onClick={handleClickOpen}>
                 新規登録
         </Button>
         <Dialog open={open} onClose={handleClose}>
@@ -143,7 +143,7 @@ const RegisterModal= ()=> {
                 maxLength:{value:24, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
                 pattern:{ value:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\-]{8,24}$/, message:'パスワードは半角英数字を最低1つずつ含めた8文字以上24文字以内（記号ハイフンのみ）で入力してください。'},
                 validate:{message: value => value === getValues('confirmPass')? undefined : 'パスワードが確認用パスワードと一致しません。' }
-        }}
+            }}
             render = {({field,fieldState})=>(
                 <TextField
                     autoFocus
