@@ -13,7 +13,7 @@ const IndexNav =()=> {
     <Box sx={{ flexGrow: 1 , paddingTop:3}}>
     <AppBar position="static" color='transparent' elevation={0}>
       <Toolbar>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1, color:'#fff' }}>
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1, color:'textColor.white'}}>
           TravelLogue
         </Typography>
         <LoginModal />

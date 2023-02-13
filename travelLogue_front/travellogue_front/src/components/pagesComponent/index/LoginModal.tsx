@@ -45,7 +45,7 @@ const LoginModal= ()=> {
 
   return (
     <div>
-            <Button   variant='contained'   color='primary' onClick={handleClickOpen}>
+            <Button   variant='contained' sx={{backgroundColor:'bgColor.blue'}} onClick={handleClickOpen}>
                 ログイン
             </Button>
       <Dialog open={open} onClose={handleClose}>
